@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Шпаргалка · Яркий конспект</title>
+    <!-- Подключаем шрифт для приятного вида -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        /* главный контейнер */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(4px);
+            border-radius: 2.5rem;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(56, 189, 248, 0.2);
+        }
+
+        /* заголовок главный */
+        .hero {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            border-bottom: 2px solid #38bdf8;
+            padding-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #bae6fd, #a5f3fc, #7dd3fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+        .hero i {
+            font-size: 3rem;
+            color: #fbbf24;
+            filter: drop-shadow(0 0 8px #fbbf24);
+        }
+        .strict-badge {
+            background: #2d3a4f;
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            border-left: 6px solid #f87171;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-left: auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+        .strict-badge i {
+            color: #fbbf24;
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        .strict-badge code {
+            background: #1e2c3a;
+            padding: 6px 10px;
+            border-radius: 36px;
+            color: #ffb8b8;
+        }
+
+        /* уроки — карточки */
+        .lesson-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2.2rem;
+        }
+
+        .lesson-card {
+            background: #1a2635;
+            border-radius: 2rem;
+            padding: 1.8rem 2rem;
+            border: 1px solid #334155;
+            box-shadow: 0 12px 30px -10px #020617;
+            transition: all 0.2s;
+        }
+        .lesson-card:hover {
+            border-color: #38bdf8;
+            box-shadow: 0 20px 35px -12px #0f172a, 0 0 0 2px rgba(56, 189, 248, 0.3);
+        }
+
+        .lesson-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 1.5rem;
+        }
+        .lesson-header h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            background: linear-gradient(120deg, #cbd5e1, #f1f5f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .lesson-icon {
+            background: #0e7490;
+            width: 48px;
+            height: 48px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #0b1120;
+            background: #facc15;
+            box-shadow: 0 0 0 3px #fde047;
+        }
+
+        /* блоки с кодом */
+        pre {
+            background: #0f172a !important;
+            border-radius: 24px;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid #334155;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            box-shadow: inset 0 0 20px #00000055;
+            margin: 1.2rem 0;
+            color: #bbd7fb;
+        }
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #1d2b3f;
+            padding: 3px 8px;
+            border-radius: 12px;
+            color: #facc15;
+            font-size: 0.95em;
+        }
+        .code-inline {
+            background: #1e2a3a;
+            color: #fbbf24;
+            padding: 3px 8px;
+            border-radius: 30px;
+            font-weight: 500;
+        }
+
+        /* выделения цветом */
+        .mark-purple {
+            background: linear-gradient(120deg, #c084fc30, #a78bfa30);
+            border-left: 6px solid #c084fc;
+            padding: 0.75rem 1.2rem;
+            border-radius: 18px;
+            font-weight: 500;
+        }
+        .mark-green {
+            background: #14532d40;
+            border-left: 6px solid #4ade80;
+            padding: 0.75rem 1.2rem;
+            border-radius: 18px;
+        }
+        .mark-yellow {
+            background: #854d0e40;
+            border-left: 6px solid #fbbf24;
+            padding: 0.75rem 1.2rem;
+            border-radius: 18px;
+        }
+        .mark-red {
+            background: #7f1d1d40;
+            border-left: 6px solid #f87171;
+            padding: 0.75rem 1.2rem;
+            border-radius: 18px;
+        }
+        .mark-blue {
+            background: #1e3a8a40;
+            border-left: 6px solid #60a5fa;
+            padding: 0.75rem 1.2rem;
+            border-radius: 18px;
+        }
+
+        .badge-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #2d374b;
+            padding: 5px 14px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-right: 10px;
+            margin-bottom: 8px;
+        }
+
+        .comparison-box {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        .comparison-item {
+            flex: 1 1 240px;
+            background: #1f2a3c;
+            border-radius: 24px;
+            padding: 1.5rem;
+            border-top: 6px solid;
+        }
+        .obj-comp { border-color: #f59e0b; }
+        .arr-comp { border-color: #10b981; }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        hr {
+            border: 1px solid #334155;
+            margin: 1.5rem 0;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 3rem;
+            color: #9aa8b9;
+            font-size: 0.95rem;
+            background: #111c2d;
+            border-radius: 60px;
+            padding: 0.8rem;
+        }
+        .footer-note i {
+            color: #fbbf24;
+        }
+        .small-note {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Шапка -->
+    <div class="hero">
+        <i class="fab fa-js"></i>
+        <h1>JavaScript шпаргалка</h1>
+        <div class="strict-badge">
+            <i class="fas fa-exclamation-triangle"></i>
+            <code>"use strict";</code> <span style="color:#b0c4de;">современный режим</span>
+        </div>
+    </div>
+
+    <div class="lesson-grid">
+
+        <!-- УРОК 1 – ВЫВОД И ПЕРЕМЕННЫЕ -->
+        <div class="lesson-card">
+            <div class="lesson-header">
+                <span class="lesson-icon"><i class="fas fa-terminal" style="color:#0f0f1e;"></i></span>
+                <h2>Урок №1 · Консоль и переменные</h2>
+            </div>
+
+            <!-- console.log -->
+            <div class="mark-blue" style="margin-bottom:1rem;">
+                <span class="badge-icon"><i class="fas fa-print" style="color:#60a5fa;"></i> console.log()</span>
+                <p><strong>📋 Что это:</strong> Команда для вывода в консоль (F12 → Console).</p>
+                <p><strong>🔍 Зачем:</strong> отладка, проверка, понимание кода.</p>
+            </div>
+            <pre><span style="color:#f472b6;">// Примеры вывода</span>
+console.log("Привет");             <span style="color:#6b7280;">// Строка</span>
+console.log(42);                   <span style="color:#6b7280;">// Число</span>
+console.log(переменная);           <span style="color:#6b7280;">// Значение</span>
+console.log("Ответ:", результат);  <span style="color:#6b7280;">// Несколько значений</span></pre>
+
+            <div class="mark-yellow">
+                <i class="fas fa-exclamation-circle" style="color:#fbbf24;"></i> <strong>!Важно:</strong> Без <code>console.log()</code> результат в консоли не увидеть.
+            </div>
+
+            <hr>
+
+            <!-- let/const/var -->
+            <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 0.8rem;">
+                <span class="badge-icon" style="background:#0b3b2c;"><i class="fas fa-lock" style="color:#4ade80;"></i> const</span>
+                <span class="badge-icon" style="background:#373069;"><i class="fas fa-pen" style="color:#c084fc;"></i> let</span>
+                <span class="badge-icon" style="background:#5b1e1e;"><i class="fas fa-skull" style="color:#f87171;"></i> var (устарел)</span>
+            </div>
+
+            <div class="grid-2col">
+                <div class="mark-green"><strong>🔒 const</strong> — нельзя переприсвоить<br>
+                <code>const a = 5; a = 10;</code> ❌ ошибка<br>
+                <span class="small-note">но можно менять объект:</span> <code>user.name = "Мария";</code> ✅</div>
+                <div class="mark-purple"><strong>📦 let</strong> — можно изменять<br> <code>let b = 5; b = 10;</code> ✅<br> действует внутри блока {}</div>
+                <div class="mark-red"><strong>⚠️ var</strong> — "всплывает" (hoisting)<br> <code>console.log(c); // undefined</code><br> не используй в новом коде!</div>
+            </div>
+            <div class="mark-yellow" style="margin-top:0.6rem;"><i class="fas fa-lightbulb"></i> Итог: <code>const</code> по умолчанию, <code>let</code> если нужно менять, <code>var</code> — только legacy.</div>
+        </div>
+
+        <!-- УРОК 2 – ИМЕНОВАНИЕ И ТИПЫ ДАННЫХ -->
+        <div class="lesson-card">
+            <div class="lesson-header">
+                <span class="lesson-icon"><i class="fas fa-font" style="color:#0b1120;"></i></span>
+                <h2>Урок №2 · Именование + типы</h2>
+            </div>
+
+            <div class="mark-blue">📏 <strong>Правила именования:</strong> осмысленные имена, camelCase (<code>userAge</code>), английские слова.</div>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; margin: 15px 0;">
+                <span class="badge-icon">🐫 camelCase: <code>userName</code></span>
+                <span class="badge-icon">📐 PascalCase: <code>UserProfile</code> (классы)</span>
+                <span class="badge-icon">🔠 UPPER_CASE: <code>MAX_COUNT</code></span>
+            </div>
+
+            <!-- Типы данных -->
+            <h3 style="color:#fcd34d; margin: 20px 0 10px;">📊 Типы данных</h3>
+            <div class="grid-2col">
+                <div class="mark-green"><i class="fas fa-circle" style="color:#4ade80;"></i> <strong>Простые</strong><br>
+                string, number, boolean, null, undefined, symbol</div>
+                <div class="mark-purple"><i class="fas fa-cubes" style="color:#c084fc;"></i> <strong>Ссылочные</strong><br> Object, Array, Function</div>
+            </div>
+
+            <div class="mark-red">
+                <i class="fas fa-radiation"></i> <strong>Особенности NaN:</strong> <code>console.log('string' * 9); // NaN</code><br>
+                <code>typeof NaN</code> → <span class="code-inline">"number"</span> (да, число‑монстр)
+            </div>
+
+            <pre><span style="color:#f472b6;">// Проверка типа</span>
+typeof "текст"      <span style="color:#6b7280;">// "string"</span>
+typeof 42           <span style="color:#6b7280;">// "number"</span>
+typeof null         <span style="color:#6b7280;">// "object"  (историческая ошибка!)</span>
+typeof [1,2]        <span style="color:#6b7280;">// "object"</span>
+Array.isArray([1,2]) <span style="color:#6b7280;">// true ✅</span></pre>
+
+            <!-- ОБЪЕКТ vs МАССИВ -->
+            <h3 style="color:#fcd34d; margin: 20px 0 10px;">🗂️ Объект 🆚 Массив</h3>
+            <div class="comparison-box">
+                <div class="comparison-item obj-comp">
+                    <i class="fas fa-object-group" style="color:#f59e0b;"></i> <strong style="font-size:1.2rem;">Объект</strong>
+                    <pre style="margin-top:10px;">const obj = {
+  'Anna': 500,
+  'Alisa': 800
+};
+obj.Anna      // 500
+obj['Alisa']  // 800
+obj.Peter = 300;</pre>
+                    <span class="small-note">📌 ключ → значение</span>
+                </div>
+                <div class="comparison-item arr-comp">
+                    <i class="fas fa-list" style="color:#10b981;"></i> <strong style="font-size:1.2rem;">Массив</strong>
+                    <pre style="margin-top:10px;">let a = ['Anna',500,'Alisa',800];
+a[0] // 'Anna'
+a[1] // 500
+a.push('Новый');</pre>
+                    <span class="small-note">📌 индекс → значение</span>
+                </div>
+            </div>
+            <div class="mark-yellow"><i class="fas fa-tip"></i> Для пар имя→значение — объект, для списков — массив. Не делай <code>a['Anna']</code> с массивом.</div>
+        </div>
+
+        <!-- УРОК 3 – ВЗАИМОДЕЙСТВИЕ -->
+        <div class="lesson-card">
+            <div class="lesson-header">
+                <span class="lesson-icon"><i class="fas fa-comments"></i></span>
+                <h2>Урок №3 · Взаимодействие с пользователем</h2>
+            </div>
+            <div class="grid-2col">
+                <div class="mark-blue"><i class="fas fa-exclamation-circle"></i> <code>alert("Hello");</code> — сообщение</div>
+                <div class="mark-green"><i class="fas fa-check-circle"></i> <code>confirm("Вопрос?");</code> → true/false</div>
+            </div>
+            <div class="mark-purple"><i class="fas fa-keyboard"></i> <code>prompt("Текст?", "по умолчанию");</code> — всегда строка!</div>
+            <pre><span style="color:#f472b6;">// преобразование в число</span>
+const age = +prompt("Сколько лет?", "18");  // унарный плюс
+console.log(age + 5); </pre>
+            <div class="mark-red"><i class="fas fa-database"></i> <strong>Вся информация от пользователя — string!</strong></div>
+
+            <h4 style="color: #fcd34d; margin:1rem 0 0.5rem;">📚 Заполнение массива через prompt</h4>
+            <pre>const userData = [];
+userData.push(prompt("Имя?"));
+userData.push(prompt("Фамилия?"));
+console.log(userData);  // ['Имя', 'Фамилия']</pre>
+            <pre>// Вывод на страницу
+document.write(answer);  // через запятую</pre>
+
+            <!-- typeof + Array.isArray -->
+            <div class="mark-yellow" style="margin-top:1rem;">
+                <i class="fas fa-search"></i> <strong>Проверка типов:</strong>
+            </div>
+            <pre>typeof null            // "object" (ошибка)
+Array.isArray([1,2])    // true ✔️</pre>
+        </div>
+
+        <!-- УРОК 4 – ИНТЕРПОЛЯЦИЯ -->
+        <div class="lesson-card">
+            <div class="lesson-header">
+                <span class="lesson-icon"><i class="fas fa-quote-right"></i></span>
+                <h2>Урок №4 · Интерполяция (шаблонные строки)</h2>
+            </div>
+            <div class="mark-green">
+                <i class="fas fa-magic"></i> <strong>Что такое?</strong> Вставка переменных в строку через <code>${}</code> и обратные кавычки ``.
+            </div>
+            <div class="grid-2col">
+                <div class="mark-red">
+                    <strike>Старый способ (конкатенация)</strike>
+                    <pre>'https://site.com/' + category + '/' + 4</pre>
+                </div>
+                <div class="mark-blue">
+                    ✨ Новый способ
+                    <pre>`https://site.com/${category}/5`</pre>
+                </div>
+            </div>
+            <pre><span style="color:#f472b6;">// Живой пример</span>
+const user = 'Pavel';
+alert(`Hello, ${user}`); 
+
+const price = 100, count = 5;
+console.log(`Итого: ${price * count} рублей`); // 500</pre>
+            <div class="mark-purple">
+                <i class="fas fa-info-circle"></i> Используй обратные кавычки `` (клавиша <strong>Ё</strong>). Внутри <code>${}</code> можно писать любой JS‑код!
+            </div>
+            <div class="mark-yellow" style="margin-top:10px;">🏁 Итог: интерполяция делает код чище и понятнее, чем склеивание через +.</div>
+        </div>
+    </div>
+
+    <!-- Дополнительные сниппеты из вашего кода (инкремент, сравнение) — добавим яркий блок в конец -->
+    <div style="margin-top: 2rem; background: #202f42; border-radius: 2rem; padding: 1.5rem 2rem;">
+        <h3 style="color: #fde047; margin-bottom: 0.8rem;"><i class="fas fa-bolt"></i>  Операторы, инкремент, логика (для повторения)</h3>
+        <div class="grid-2col">
+            <div>
+                <span class="badge-icon">➗ остаток <code>5 % 2 → 1</code></span>
+                <span class="badge-icon">== vs === <code>2*4=='8' true</code> <code>2*4==='8' false</code></span>
+            </div>
+            <div>
+                <pre style="margin:0;">let incr = 10;
+incr++;      // постфикс
+console.log(incr); // 11
+console.log(incr++); // 11 (а после 12)
+console.log(++incr); // 13</pre>
+            </div>
+        </div>
+        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+            <div><i class="fas fa-check-circle" style="color:#4ade80;"></i> && (И): true если оба true</div>
+            <div><i class="fas fa-check-circle" style="color:#60a5fa;"></i> || (ИЛИ): true если хоть один true</div>
+        </div>
+        <pre style="margin-top:1rem;">const isChecked = true, isClose = false;
+console.log(isChecked && isClose); // false
+console.log(isChecked || isClose); // true</pre>
+    </div>
+
+    <!-- Подвал -->
+    <div class="footer-note">
+        <i class="fas fa-brain"></i> Яркий конспект по JavaScript · используй <code>"use strict"</code> · const / let · интерполяция · типы данных
+    </div>
+</div>
+<!-- (дополнительно: маленький скрипт для копирайта или просто ничего) -->
+
+
+<scripot src="js/script.js"></scripot>
+</body>
+</html>
