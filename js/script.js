@@ -89,7 +89,7 @@
 //==================================Урок4===============================================================
 
 
-//Интраполяция
+// Интраполяция
 // "use sctrict";
 // const category  = 'toys';
 
@@ -108,44 +108,49 @@
 
 //==================================Урок5===============================================================
 
-"use strict";
-console.log('arr'+' -  object');
-console.log(4 + +'5');
+// "use strict";
+// console.log('arr'+' -  object');
+// console.log(4 + +'5');
 
-console.log(4 + "333434");
-
-
-let incr = 10, 
-    decr = 10;
-
-incr ++; //Инкримент постфиксные
-decr--; //диинкримент постфиксные
-
-console.log(incr);
-console.log(decr);
+// console.log(4 + "333434");
 
 
-++incr;
---decr;
+// let incr = 10, 
+//     decr = 10;
 
-console.log(incr);
-console.log(--decr);
+// incr ++; //Инкримент постфиксные
+// decr--; //диинкримент постфиксные
 
-
-console.log(incr++);
-console.log(++incr);
-console.log(5%2);
-
-console.log(2*4 == 8);
-console.log(2*4 === '8');
+// console.log(incr);
+// console.log(decr);
 
 
-// &&
-// ||
-const isChecked = true,
-    isClose = false;
+// ++incr;
+// --decr;
+
+// console.log(incr);
+// console.log(--decr);
 
 
-console.log(isChecked && isClose);
-console.log(isChecked || isClose);
-console.log();
+// console.log(incr++);
+// console.log(++incr);
+// console.log(5%2);
+
+// console.log(2*4 == 8);
+// console.log(2*4 === '8');
+
+
+// // &&
+// // ||
+// const isChecked = true,
+//     isClose = false;
+
+
+// console.log(isChecked && isClose);
+// console.log(isChecked || isClose);
+// console.log();
+
+
+
+
+alert("Hello");
