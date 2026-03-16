@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>SANDS OF TIME ❤️</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
@@ -20,109 +20,96 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 12px;
             margin: 0;
             color: #2d3436;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* Анимированные шарики и конфетти */
+        /* Анимированные шарики для телефона (поменьше и не мешают) */
         .balloon {
             position: absolute;
-            font-size: 3rem;
-            opacity: 0.3;
+            font-size: 2.2rem;
+            opacity: 0.25;
             animation: float 6s ease-in-out infinite;
             z-index: 0;
             pointer-events: none;
         }
 
-        .balloon:nth-child(1) { top: 5%; left: 5%; animation-delay: 0s; transform: rotate(-5deg); }
-        .balloon:nth-child(2) { top: 15%; right: 8%; animation-delay: 1s; transform: rotate(10deg); }
-        .balloon:nth-child(3) { bottom: 10%; left: 10%; animation-delay: 2s; transform: rotate(-15deg); }
-        .balloon:nth-child(4) { bottom: 20%; right: 15%; animation-delay: 3s; transform: rotate(5deg); }
-        .balloon:nth-child(5) { top: 30%; left: 20%; animation-delay: 4s; transform: rotate(-8deg); }
+        .balloon:nth-child(1) { top: 2%; left: 2%; animation-delay: 0s; }
+        .balloon:nth-child(2) { top: 8%; right: 3%; animation-delay: 1s; }
+        .balloon:nth-child(3) { bottom: 5%; left: 5%; animation-delay: 2s; }
+        .balloon:nth-child(4) { bottom: 12%; right: 8%; animation-delay: 3s; }
+        .balloon:nth-child(5) { top: 20%; left: 15%; animation-delay: 4s; }
 
         @keyframes float {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
-
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: linear-gradient(45deg, #feca57, #ff9ff3);
-            opacity: 0.6;
-            border-radius: 0 50% 50% 50%;
-            animation: confettiFall 4s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes confettiFall {
-            0% { transform: translateY(-100px) rotate(0deg); opacity: 0.8; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+            50% { transform: translateY(-15px) rotate(5deg); }
         }
 
         .container {
-            max-width: 650px;
+            max-width: 480px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border-radius: 60px 60px 60px 60px;
-            padding: 45px 30px;
-            box-shadow: 0 30px 60px rgba(255, 107, 107, 0.4), 0 0 0 4px #fff9e6 inset, 0 0 30px #ffeaa7;
+            border-radius: 40px;
+            padding: 30px 20px;
+            box-shadow: 0 20px 40px rgba(255, 107, 107, 0.4), 0 0 0 3px #fff9e6 inset, 0 0 20px #ffeaa7;
             transition: all 0.3s ease;
             text-align: center;
             position: relative;
             z-index: 10;
             border: 3px solid #ffd93d;
+            margin: 10px auto;
         }
 
         h1 {
-            font-size: 3rem;
+            font-size: 2.4rem;
             font-weight: 800;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             background: linear-gradient(135deg, #e17055, #d63031, #6c5ce7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 10px;
-            text-shadow: 4px 4px 0 #ffeaa7;
-            transform: rotate(-1deg);
+            margin-bottom: 8px;
+            text-shadow: 3px 3px 0 #ffeaa7;
+            transform: rotate(-0.5deg);
+            line-height: 1.2;
+            word-break: break-word;
         }
 
         .emoji-deco {
-            font-size: 3rem;
-            filter: drop-shadow(0 8px 10px #fdcb6e);
-            margin-bottom: 15px;
+            font-size: 2.5rem;
+            filter: drop-shadow(0 5px 8px #fdcb6e);
+            margin-bottom: 10px;
             animation: sparkle 2s infinite;
         }
 
         @keyframes sparkle {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+            50% { transform: scale(1.1); }
         }
 
         .content-card {
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 50px;
-            padding: 35px 25px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 36px;
+            padding: 25px 18px;
             border: 3px dashed #ff7675;
-            margin: 25px 0;
-            box-shadow: 0 15px 0 #fab1a0;
+            margin: 18px 0;
+            box-shadow: 0 10px 0 #fab1a0;
         }
 
         .photo-frame {
             width: 100%;
-            height: 250px;
-            border-radius: 40px 40px 40px 40px;
-            margin: 25px 0;
+            height: 200px;
+            border-radius: 32px;
+            margin: 18px 0;
             overflow: hidden;
             background: #fff0d6;
-            border: 6px solid #fdcb6e;
-            box-shadow: 0 15px 0 #e17055, 0 0 0 4px #fff2d7 inset;
+            border: 4px solid #fdcb6e;
+            box-shadow: 0 10px 0 #e17055, 0 0 0 3px #fff2d7 inset;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -133,11 +120,11 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: transform 0.4s ease;
+            transition: transform 0.3s ease;
         }
 
         .photo-frame img:hover {
-            transform: scale(1.1) rotate(1deg);
+            transform: scale(1.05);
         }
 
         .photo-placeholder-fallback {
@@ -149,98 +136,108 @@
             height: 100%;
             background: linear-gradient(145deg, #fff2d7, #ffeaa7);
             color: #e17055;
-            font-size: 4rem;
-            gap: 10px;
+            font-size: 3rem;
+            gap: 8px;
+            text-align: center;
+            padding: 10px;
         }
 
         .photo-placeholder-fallback span {
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: #d63031;
             background: #ffffffb0;
-            padding: 8px 25px;
-            border-radius: 60px;
+            padding: 6px 16px;
+            border-radius: 40px;
             font-weight: 600;
             border: 2px solid #fdcb6e;
+            word-break: break-word;
         }
 
         .message-text {
-            font-size: 1.4rem;
-            line-height: 1.7;
+            font-size: 1.15rem;
+            line-height: 1.6;
             background: #ffffffcc;
-            padding: 30px 25px;
-            border-radius: 45px;
-            border-left: 10px solid #ff6b6b;
-            border-right: 5px solid #feca57;
+            padding: 20px 16px;
+            border-radius: 32px;
+            border-left: 6px solid #ff6b6b;
+            border-right: 3px solid #feca57;
             text-align: left;
-            margin: 25px 0;
+            margin: 18px 0;
             white-space: pre-line;
             color: #2d3436;
             font-weight: 500;
-            box-shadow: 0 8px 0 #b2bec3;
-            transform: rotate(0.5deg);
+            box-shadow: 0 5px 0 #b2bec3;
+            transform: rotate(0.3deg);
         }
 
         .input-group {
             display: flex;
             flex-direction: column;
-            gap: 18px;
-            margin: 30px 0 20px;
+            gap: 14px;
+            margin: 20px 0 15px;
         }
 
         input {
             background: #fff9e6;
-            border: 4px solid #ff9ff3;
-            padding: 18px 24px;
-            border-radius: 60px;
-            font-size: 1.3rem;
+            border: 3px solid #ff9ff3;
+            padding: 16px 20px;
+            border-radius: 50px;
+            font-size: 1.1rem;
             color: #2d3436;
             text-align: center;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             transition: 0.2s;
             outline: none;
             font-weight: 600;
-            box-shadow: 0 8px 0 #f368e0;
+            box-shadow: 0 6px 0 #f368e0;
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         input:focus {
             border-color: #ff6b6b;
-            box-shadow: 0 8px 0 #ee5a24, 0 0 30px #feca57;
+            box-shadow: 0 6px 0 #ee5a24, 0 0 20px #feca57;
             background: #ffffff;
         }
 
         button {
             background: linear-gradient(145deg, #ffb347, #ff8c42);
             border: none;
-            padding: 18px;
-            border-radius: 60px;
-            font-size: 1.5rem;
-            font-weight: 800;
+            padding: 16px 16px;
+            border-radius: 50px;
+            font-size: 1.25rem;
+            font-weight: 700;
             color: white;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             cursor: pointer;
-            box-shadow: 0 10px 0 #e67e22, 0 0 0 3px #ffeaa7;
-            transition: 0.08s linear;
+            box-shadow: 0 7px 0 #e67e22, 0 0 0 2px #ffeaa7;
+            transition: 0.05s linear;
             border: 2px solid #fffacd;
-            text-shadow: 2px 2px 0 #d35400;
+            text-shadow: 1px 1px 0 #d35400;
+            width: 100%;
+            -webkit-tap-highlight-color: transparent;
         }
 
         button:active {
-            transform: translateY(7px);
-            box-shadow: 0 3px 0 #e67e22, 0 0 0 3px #ffeaa7;
+            transform: translateY(5px);
+            box-shadow: 0 2px 0 #e67e22, 0 0 0 2px #ffeaa7;
         }
 
         .footer {
-            margin-top: 35px;
-            font-size: 1.2rem;
+            margin-top: 25px;
+            font-size: 1rem;
             color: #6c5ce7;
             font-weight: 700;
-            text-shadow: 2px 2px 0 #a29bfe;
+            text-shadow: 1px 1px 0 #a29bfe;
             background: #fffacd;
-            padding: 15px 20px;
-            border-radius: 50px;
+            padding: 12px 16px;
+            border-radius: 40px;
             display: inline-block;
-            border: 3px solid #fd79a8;
+            border: 2px solid #fd79a8;
+            max-width: 100%;
+            word-break: break-word;
         }
 
         .hidden {
@@ -248,63 +245,105 @@
         }
 
         .point {
-            animation: bounceIn 0.8s ease;
+            animation: bounceIn 0.6s ease;
         }
 
         @keyframes bounceIn {
-            0% { transform: scale(0.8); opacity: 0; }
-            50% { transform: scale(1.05); opacity: 0.9; }
+            0% { transform: scale(0.9); opacity: 0; }
+            60% { transform: scale(1.02); opacity: 1; }
             100% { transform: scale(1); opacity: 1; }
         }
 
         .badge {
             background: linear-gradient(145deg, #a29bfe, #6c5ce7);
-            padding: 12px 30px;
-            border-radius: 60px;
+            padding: 10px 22px;
+            border-radius: 50px;
             display: inline-block;
-            border: 3px solid #fdcb6e;
+            border: 2px solid #fdcb6e;
             color: white;
-            margin-bottom: 25px;
-            font-size: 1.2rem;
+            margin-bottom: 18px;
+            font-size: 1rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 0 7px 0 #4834d4;
-            transform: rotate(-1deg);
+            letter-spacing: 1px;
+            box-shadow: 0 5px 0 #4834d4;
+            transform: rotate(-0.5deg);
+            word-break: break-word;
+            max-width: 100%;
         }
 
         .error-message {
             color: #d63031;
-            font-size: 1.1rem;
-            margin-top: 10px;
-            min-height: 25px;
+            font-size: 1rem;
+            margin-top: 8px;
+            min-height: 24px;
             font-weight: 700;
             text-shadow: 1px 1px 0 #ffeaa7;
             background: #fff2d7;
-            padding: 8px;
-            border-radius: 50px;
+            padding: 6px 10px;
+            border-radius: 40px;
+            word-break: break-word;
         }
 
         h2 {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             color: #e17055;
-            text-shadow: 3px 3px 0 #fab1a0;
-            margin-bottom: 10px;
+            text-shadow: 2px 2px 0 #fab1a0;
+            margin-bottom: 8px;
             letter-spacing: 1px;
+            word-break: break-word;
+            line-height: 1.2;
         }
 
-        /* Добавим падающие звёздочки */
-        .star {
-            position: absolute;
-            color: #ffd700;
-            font-size: 1.5rem;
-            animation: twinkle 3s infinite;
-            pointer-events: none;
+        /* Убираем лишние отступы на маленьких экранах */
+        @media (max-width: 380px) {
+            .container {
+                padding: 20px 12px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .message-text {
+                font-size: 1rem;
+                padding: 16px 12px;
+            }
+            
+            .photo-frame {
+                height: 170px;
+            }
+            
+            .badge {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+        }
+
+        /* Для очень маленьких экранов */
+        @media (max-width: 320px) {
+            .container {
+                padding: 15px 10px;
+            }
+            
+            button {
+                font-size: 1.1rem;
+                padding: 14px 10px;
+            }
+            
+            input {
+                font-size: 1rem;
+                padding: 14px 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Декоративные элементы праздника -->
+    <!-- Декоративные элементы праздника (адаптированы под телефон) -->
     <div class="balloon">🎈</div>
     <div class="balloon">🎈</div>
     <div class="balloon">🎈</div>
@@ -317,15 +356,15 @@
             <div class="emoji-deco">⌛✨🎉</div>
             <h1>SANDS OF TIME</h1>
             <div class="content-card">
-                <div style="font-size: 4rem; margin-bottom: 10px;">💌❤️‍🔥</div>
-                <p style="margin-bottom: 25px; font-size: 1.5rem; font-weight: 600; color: #e17055;">Введи пароль с первой карточки, чтобы начать путешествие.</p>
+                <div style="font-size: 3rem; margin-bottom: 8px;">💌❤️‍🔥</div>
+                <p style="margin-bottom: 18px; font-size: 1.2rem; font-weight: 600; color: #e17055;">Введи пароль с первой карточки</p>
                 <div class="input-group">
-                    <input type="text" id="globalPassword" placeholder="🔑 Пароль" autocomplete="off">
+                    <input type="text" id="globalPassword" placeholder="🔑 Пароль" autocomplete="off" inputmode="text">
                     <button onclick="handleGlobalPassword()">🎉 Открыть точку 1 🎉</button>
                 </div>
                 <div class="error-message" id="globalError"></div>
             </div>
-            <div class="footer">💖 для тебя · с полугодием · love 💖</div>
+            <div class="footer">💖 для тебя · с полугодием 💖</div>
         </div>
 
         <!-- КОНТЕЙНЕР ДЛЯ ТОЧЕК (изначально скрыт) -->
@@ -343,7 +382,7 @@
                     «Тот день, когда мы впервые увиделись... Ты пришла с братом, а потом мы шли и болтали до самого метро. Ты тогда показалась мне самой интересной девушкой в мире.»
                 </div>
                 <div class="input-group">
-                    <input type="text" id="pwd2" placeholder="🔑 Пароль для следующей точки">
+                    <input type="text" id="pwd2" placeholder="🔑 Пароль для следующей точки" inputmode="text">
                     <button onclick="checkPoint(2)">🔓 точка 2 ➡️</button>
                 </div>
                 <div class="error-message" id="error2"></div>
@@ -362,7 +401,7 @@
                     «Помнишь, как мы серьёзно поссорились? А потом я тебя догнал... в метро!! Тот самый момент, когда проехал поезд — и в тишине, в том самом углу, у нас появился шанс поговорить. И всё стало хорошо. Ну как сказать, хорошо было ночью, когда была та самая роза и такси)»
                 </div>
                 <div class="input-group">
-                    <input type="text" id="pwd3" placeholder="🔑 Пароль для следующей точки">
+                    <input type="text" id="pwd3" placeholder="🔑 Пароль для следующей точки" inputmode="text">
                     <button onclick="checkPoint(3)">🔓 точка 3 ➡️</button>
                 </div>
                 <div class="error-message" id="error3"></div>
@@ -381,7 +420,7 @@
                     «Мы так и не научились толком кататься, но это был лучший спонтанный вечер. Ты смеялась, мы падали, а под конец наделали кучу фото и танцевали вальс под дурацкую музыку из колонки. До сих пор улыбаюсь.»
                 </div>
                 <div class="input-group">
-                    <input type="text" id="pwd4" placeholder="🔑 Пароль для следующей точки">
+                    <input type="text" id="pwd4" placeholder="🔑 Пароль для следующей точки" inputmode="text">
                     <button onclick="checkPoint(4)">🔓 точка 4 ➡️</button>
                 </div>
                 <div class="error-message" id="error4"></div>
@@ -400,7 +439,7 @@
                     «Помнишь ту скамейку, куда ты приходила в сентябре, когда брат сломал ногу? Мы там сидели и фигнёй всякой страдали... А в итоге эта скамейка стала нашей точкой.»
                 </div>
                 <div class="input-group">
-                    <input type="text" id="pwd5" placeholder="🔑 Пароль для следующей точки">
+                    <input type="text" id="pwd5" placeholder="🔑 Пароль для следующей точки" inputmode="text">
                     <button onclick="checkPoint(5)">🔓 точка 5 ➡️</button>
                 </div>
                 <div class="error-message" id="error5"></div>
@@ -419,7 +458,7 @@
                     «А теперь пятая остановка — место, где закончились наши покатушки на велосипеде. Помнишь, ты сидела на руле?»
                 </div>
                 <div class="input-group">
-                    <input type="text" id="pwd6" placeholder="🔑 Пароль для следующей точки">
+                    <input type="text" id="pwd6" placeholder="🔑 Пароль для следующей точки" inputmode="text">
                     <button onclick="checkPoint(6)">🔓 точка 6 ➡️</button>
                 </div>
                 <div class="error-message" id="error6"></div>
@@ -445,10 +484,10 @@ P.S. Просто позвони. Я спущусь и встречу :)
 
 Шесть месяцев. Шесть точек. Один шаг до меня.»
                 </div>
-                <div style="margin: 40px 0 30px; padding: 30px; background: linear-gradient(145deg, #fdcb6e, #ff9ff3); border-radius: 60px; border: 6px solid white;">
-                    <p style="font-size: 3rem;">💝🎉</p>
-                    <p style="font-size: 2.5rem; font-weight: 800; color: #d63031;">Я люблю тебя</p>
-                    <p style="font-size: 1.8rem;">Иди ко мне — по шагам ❤️</p>
+                <div style="margin: 25px 0 20px; padding: 20px; background: linear-gradient(145deg, #fdcb6e, #ff9ff3); border-radius: 50px; border: 4px solid white;">
+                    <p style="font-size: 2.5rem;">💝🎉</p>
+                    <p style="font-size: 2rem; font-weight: 800; color: #d63031;">Я люблю тебя</p>
+                    <p style="font-size: 1.4rem;">Иди ко мне — по шагам ❤️</p>
                 </div>
                 <!-- финал, больше полей нет -->
             </div>
@@ -521,6 +560,13 @@ P.S. Просто позвони. Я спущусь и встречу :)
                     handleGlobalPassword();
                 }
             }
+        });
+
+        // Для мобильных устройств убираем возможное масштабирование при фокусе
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('touchstart', function() {
+                this.style.fontSize = '16px'; // предотвращает зум на iPhone
+            });
         });
     </script>
 </body>
