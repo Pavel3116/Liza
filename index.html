@@ -120,7 +120,7 @@
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
-
+        
         .coordinates-block {
             background: #fff3e9;
             border-radius: 20px;
@@ -390,7 +390,7 @@ h1, h2, .birthday-message {
     align-items: stretch;
 }
 
- .coordinates-block, .riddle-block {
+ .coordinates-block, .riddle-block, .cor {
         cursor: pointer; /* чтобы было видно, что кликабельно */
         padding: 20px;
         margin: 10px;
@@ -410,7 +410,7 @@ h1, h2, .birthday-message {
 }
 .memory-image {
         cursor: pointer;
-        max-width: 300px;
+        max-width: 200px;
         border-radius: 20px;
         transition: transform 0.2s;
     }
@@ -433,11 +433,16 @@ h1, h2, .birthday-message {
     .coordinates-block.show {
     display: block !important;
 }
+   .cor.show {
+    display: block !important;
+}
 .riddle-block.show {
     display: block !important;
 }
+
 .coordinates-block.hidden,
-.riddle-block.hidden {
+.riddle-block.hidden,
+.cor.hidden {
     display: none !important;
 }
     </style>
@@ -600,10 +605,10 @@ h1, h2, .birthday-message {
             const point = points[currentPointIndex];
             
             let html = `
-                <div class="point">
+                <div class="point" >
                     <span class="badge">🗼 остановка ${currentPointIndex + 1}</span>
-                    <h2>📍 координаты</h2>
-                    <img src="images/Конверт.png" class="memory-image" id="clickImage">
+                    <img src="images/Конверт2.png" class="memory-image" id="clickImage" style="max-width=150px;">
+                    <h2 id="coor" class="cor" style="display: none;" >📍 координаты</h2>
 <div class="coordinates-block" id="secretMessage" style="display: none;">${point.coordinates}</div>
 
                     <div class="riddle-block" id="secretZadach" style="display:none;">🔍 ${point.riddle}</div>
@@ -753,47 +758,73 @@ h1, h2, .birthday-message {
         function setupHandlers() {
             console.log('Навешиваем обработчики...');
             
-            // 1. Конверт - показывает координаты
+            // 1. Конверт - показывает координаты и загадку
             const img = document.getElementById('clickImage');
             const coords = document.getElementById('secretMessage');
-            const zadaxh = document.getElementById('secretZadach');
+            const zadach = document.getElementById('secretZadach');
+            const coor = document.getElementById('coor');
             
-            if (img && coords) {
+            if (img) {
+                // Убираем старый обработчик
+                img.onclick = null;
+                
+                // Вешаем новый
                 img.onclick = function() {
-                    coords.style.display = 'block';
-                    console.log('Координаты показаны');
-                    zadaxh.style.display = 'block';
-                    console.log('Звгадка показана');
+                    console.log('Конверт нажат');
+                    
+                    if (coords) {
+                        coords.style.display = 'block';
+                        console.log('Координаты показаны');
+                    }
+                    
+                    if (coor) {
+                        coor.style.display = 'block';
+                        console.log('Заголовок координат показан');
+                    }
+                    
+                    if (zadach) {
+                        zadach.style.display = 'block';
+                        console.log('Загадка показана');
+                    }
+                    
+                    // Можно добавить небольшую анимацию
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 200);
                 };
+            } else {
+                console.log('Конверт не найден!');
             }
             
-            // 2. Блок координат - добавляем класс hidden при клике
-            const coordBlock = document.querySelector('.coordinates-block');
-            if (coordBlock) {
-                // Убираем старый обработчик
-                coordBlock.onclick = null;
-                // Вешаем новый
-                coordBlock.onclick = function(e) {
-                    e.stopPropagation();
-                    this.classList.add('hidden');
-                    alert('Координаты открыты ❤️');
-                    console.log('Координаты скрыты');
-                };
-            }
+            // 2. Блок координат - скрываем при клике
+            const coordBlock = document.getElementById('secretMessage');
+            // if (coordBlock) {
+            //     coordBlock.onclick = function(e) {
+            //         e.stopPropagation();
+            //         this.style.display = 'none';
+            //         console.log('Координаты скрыты');
+                    
+            //         // Можно показать уведомление
+            //         const coorTitle = document.getElementById('coor');
+            //         if (coorTitle) {
+            //             coorTitle.style.display = 'none';
+            //         }
+                    
+            //         alert('Координаты открыты ❤️');
+            //     };
+            // }
             
-            // 3. Блок загадки - добавляем класс hidden при клике
-            const riddleBlock = document.querySelector('.riddle-block');
-            if (riddleBlock) {
-                // Убираем старый обработчик
-                riddleBlock.onclick = null;
-                // Вешаем новый
-                riddleBlock.onclick = function(e) {
-                    e.stopPropagation();
-                    this.classList.add('hidden');
-                    alert('Загадка открыта ❤️');
-                    console.log('Загадка скрыта');
-                };
-            }
+            // 3. Блок загадки - скрываем при клике
+            const riddleBlock = document.getElementById('secretZadach');
+            // if (riddleBlock) {
+            //     riddleBlock.onclick = function(e) {
+            //         e.stopPropagation();
+            //         this.style.display = 'none';
+            //         console.log('Загадка скрыта');
+            //         alert('Загадка открыта ❤️');
+            //     };
+            // }
             
             console.log('Обработчики навешены');
         }
@@ -802,19 +833,174 @@ h1, h2, .birthday-message {
         const container = document.getElementById('mainContainer');
         
         if (container) {
+            // Запускаем сразу
+            setupHandlers();
+            
+            // И наблюдаем за изменениями
             const observer = new MutationObserver(function(mutations) {
                 console.log('Контейнер изменился');
-                // Небольшая задержка, чтобы DOM точно обновился
-                setTimeout(setupHandlers, 100);
+                // Даем время на обновление DOM
+                setTimeout(setupHandlers, 200);
             });
             
-            observer.observe(container, { childList: true, subtree: true });
+            observer.observe(container, { 
+                childList: true, 
+                subtree: true,
+                attributes: false,
+                characterData: false 
+            });
         }
-        
-        // Первый запуск
-        setTimeout(setupHandlers, 500);
     });
 </script>
+
+<script>
+document.addEventListener('click', function(e) {
+    if (e.target.id === 'clickImage' || e.target.closest('#clickImage')) {
+        console.log('Конверт кликнут!');
+        
+        const img = e.target;
+        const coor = document.getElementById('coor');
+        const coords = document.getElementById('secretMessage');
+        const zadach = document.getElementById('secretZadach');
+        
+        // Анимация "открывания"
+        img.style.transition = 'transform 0.6s';
+        img.style.transform = 'rotateY(90deg)';
+        
+        setTimeout(() => {
+            // Меняем картинку (если есть вторая картинка)
+            if (img.src.includes('Конверт2.png')) {
+                img.src = 'images/images.png'; // картинка с содержимым
+            } else {
+                img.src = 'images/image.png'; // если нет - просто крутим обратно
+            }
+            img.style.transform = 'rotateY(0deg)';
+        }, 300);
+        
+        // Показываем элементы с задержкой
+        setTimeout(() => {
+            if (coor) {
+                coor.style.display = 'block';
+                coor.style.animation = 'slideIn 0.5s';
+            }
+            
+            if (coords) {
+                coords.style.display = 'block';
+                coords.style.animation = 'slideIn 0.7s';
+            }
+            
+            if (zadach) {
+                zadach.style.display = 'block';
+                zadach.style.animation = 'slideIn 0.9s';
+            }
+        }, 600);
+    }
+    
+    // Анимация для скрытия элементов
+    if (e.target.id === 'coor' || e.target.id === 'secretMessage' || e.target.id === 'secretZadach') {
+        e.target.style.animation = 'slideOut 0.3s';
+        
+        setTimeout(() => {
+            e.target.style.display = 'none';
+        }, 280);
+    }
+});
+</script>
+
+<style>
+@keyframes slideIn {
+    from { 
+        opacity: 0; 
+        transform: translateX(-20px);
+    }
+    to { 
+        opacity: 1; 
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    from { 
+        opacity: 1; 
+        transform: translateX(0);
+    }
+    to { 
+        opacity: 0; 
+        transform: translateX(20px);
+    }
+}
+
+.memory-image {
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+.memory-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(181, 126, 84, 0.3);
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const img = document.getElementById('clickImage');
+    
+    if (img) {
+        // Запоминаем оригинальное фото
+        const originalSrc = img.src;
+        
+        // При наведении - меняем
+        img.addEventListener('mouseenter', function() {
+            this.style.transition = 'opacity 0.3s';
+            this.style.opacity = '0.7';
+            // Можно добавить подсказку
+            this.title = 'Кликни, чтобы открыть';
+        });
+        
+        // При убирании мыши - возвращаем
+        img.addEventListener('mouseleave', function() {
+            this.style.opacity = '1';
+        });
+    }
+});
+
+// Основной клик
+document.addEventListener('click', function(e) {
+    if (e.target.id === 'clickImage' || e.target.closest('#clickImage')) {
+        const img = e.target;
+        const coor = document.getElementById('coor');
+        const coords = document.getElementById('secretMessage');
+        const zadach = document.getElementById('secretZadach');
+        
+        // Анимация "хлопка"
+        img.style.transform = 'scale(0.8)';
+        img.style.transition = 'transform 0.2s';
+        
+        setTimeout(() => {
+            img.style.transform = 'scale(1)';
+        }, 200);
+        
+        // Показываем элементы
+        if (coor) coor.style.display = 'block';
+        if (coords) coords.style.display = 'block';
+        if (zadach) zadach.style.display = 'block';
+    }
+});
+</script>
+
+<style>
+.memory-image {
+    transition: transform 0.3s, opacity 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.memory-image:active {
+    transform: scale(0.95);
+}
+</style>
 
 
 </body>
