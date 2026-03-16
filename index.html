@@ -487,7 +487,7 @@ h1, h2, .birthday-message {
                 coordinates: '60.036947, 30.324604', // Озерки прокат сноубордов
                 riddle: 'Помнишь наше первое официальное свидание? Я позвал тебя в Охта Парк кататься на сноубордах. Но прежде чем покорить склоны, мы заехали в одно место...... <br> Туда, где пахло резиной и кофе, где ребята в подвальке подбирали нам доски и не только  "мы первый раз, ладно я(".<br> Ты несколько раз мерила ботинки — всё никак не могла подобрать удобные, а мы оба были такие радостные, словно уже неслись с горы, хотя ещё даже из проката не вышли 😄 Конверт с кодом — там! <br> <br> И знаешь, что я запомнил больше всего? Твою улыбку. Она меня очень радовала. С самого первого дня и до сих пор. <br><br><span class="highlight">Кодовое слово: [Агент 007 пришел получать задание] </span><br><br> P.S. Если вдруг захочешь в кино — вспомни «Мираж», но код не там. Наше кино только начинается 🎬',
                 placeKey: '1',
-                photo: 'images/',
+                photo: 'images/Сноуборды2.jpg',
                 text: 'Мы так и не стали профи, но это был лучший день. <br> Мы уехали на целый день в Охта Парк, и ты учила меня кататься. Падали, смеялись, снова вставали и радовались как дети. Эмоций было — вагон, и всё самые настоящие. <br> А ещё устроили офигенную фотосессию прямо на склоне. До сих пор те фото — мои любимые.<br> Ты смеялась, я любовался. И пусть сноуборд нас так и не покорил — тот вечер остался в сердце навсегда.'
             },
             { 
@@ -606,8 +606,11 @@ h1, h2, .birthday-message {
             
             let html = `
                 <div class="point" >
-                    <span class="badge">🗼 остановка ${currentPointIndex + 1}</span>
-                    <img src="images/Конверт2.png" class="memory-image" id="clickImage" style="max-width=150px;">
+                    <div style="display: flex;
+    flex-direction: column;">
+                        <span class="badge">🗼 остановка ${currentPointIndex + 1}</span>
+                        <img src="images/Конверт2.png" class="memory-image" id="clickImage" style="max-width=150px;">
+                        </div>
                     <h2 id="coor" class="cor" style="display: none;" >📍 координаты</h2>
 <div class="coordinates-block" id="secretMessage" style="display: none;">${point.coordinates}</div>
 
@@ -623,14 +626,24 @@ h1, h2, .birthday-message {
                     <div class="error-message" id="placeKeyError"></div>
                 `;
             } else {
+                 if(currentPointIndex == 0){
+                    html +=`
+                    <div class="photo-frame" style="border-radius: 25px;">
+                        <img src="images/Сноуборд.jpg" alt="фото" onerror="this.parentElement.innerHTML='<div class=\\'photo-placeholder\\'>📸</div>'">
+                    </div>
+                
+`;
+}
                 html += `
                     <div class="photo-frame" style="border-radius: 25px;
-    max-width: 300px;">
+    ">
                         <img src="${point.photo}" alt="фото" onerror="this.parentElement.innerHTML='<div class=\\'photo-placeholder\\'>📸</div>'">
                     </div>
+                    
                     <div class="message-text">${point.text}</div>
                 `;
-                
+               
+
                 // Добавляем видео только для третьей точки
                 if (currentPointIndex == 2) {
                     html += `
