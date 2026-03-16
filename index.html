@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>шесть месяцев · парижский маршрут</title>
+    <title>День рождение - парижский маршрут!</title>
+    <link rel="icon" href="images/favicon.jpg" type="image/x-icon">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap');
+
+        @font-face {
+    font-family: 'Parisienne';
+    src: url('fonts/Parisienne-ymRq.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
 
         * {
             margin: 0;
@@ -14,21 +23,27 @@
         }
 
         body {
+            background-image: url("images/Parish.jpg");
+          
             font-family: 'Montserrat', sans-serif;
-            background: #f0e4d3;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size:cover;
+            /* background: #f0e4d3; */
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 16px;
-            color: #3e3530;
-            background-image: 
+            /* color: #3e3530; */
+            /* background-image: 
                 radial-gradient(circle at 10% 30%, #ffd7ba 0%, transparent 35%),
                 radial-gradient(circle at 90% 70%, #ffe1c6 0%, transparent 40%),
-                repeating-linear-gradient(45deg, #ecdacb 0px, #ecdacb 2px, transparent 2px, transparent 20px);
+                repeating-linear-gradient(45deg, #ecdacb 0px, #ecdacb 2px, transparent 2px, transparent 20px); */
         }
 
         .container {
+            opacity: 0.958;
             max-width: 600px;
             width: 100%;
             background: #fff9f2;
@@ -42,12 +57,12 @@
 
         /* Праздничный декор */
         .container::before {
-            content: "🎂 🗼 ✨ 🎉";
+            content: "🎂 🎉";
             position: absolute;
             top: -20px;
             left: 30px;
             font-size: 2.2rem;
-            opacity: 0.3;
+            opacity: 0.8;
             transform: rotate(-2deg);
             filter: drop-shadow(0 6px 6px #cfb6a2);
             white-space: nowrap;
@@ -66,7 +81,7 @@
         }
 
         h1 {
-            font-family: 'Playfair Display', serif;
+            /* font-family: 'Playfair Display', serif; */
             font-size: 2.2rem;
             color: #9d6b4b;
             text-align: center;
@@ -112,7 +127,7 @@
             padding: 20px;
             margin: 20px 0;
             font-family: 'Montserrat', monospace;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             text-align: center;
             border: 2px solid #fadbc8;
             color: #7b543b;
@@ -150,7 +165,7 @@
 
         .photo-frame {
             width: 100%;
-            aspect-ratio: 4/3;
+            /* aspect-ratio: 4/3; */
             background: #fadbc8;
             border-radius: 30px 30px 30px 30px;
             margin: 25px 0;
@@ -364,24 +379,92 @@
             margin: 15px 0;
             font-style: italic;
         }
+       
+h1, h2, .birthday-message {
+    font-family: 'Parisienne';
+}
+.Key{
+    display: flex;
+    min-width: 200px;
+    justify-content: space-evenly;
+    align-items: stretch;
+}
+
+ .coordinates-block, .riddle-block {
+        cursor: pointer; /* чтобы было видно, что кликабельно */
+        padding: 20px;
+        margin: 10px;
+        border: 2px solid #ff6b6b;
+        border-radius: 15px;
+        background: #fff0f0;
+        transition: opacity 0.3s;
+    }
+    .hidden {
+        display: none; /* класс для скрытия */
+    }
+    .highlight {
+    background: #ffeaa7;  /* нежный жёлтый */
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+.memory-image {
+        cursor: pointer;
+        max-width: 300px;
+        border-radius: 20px;
+        transition: transform 0.2s;
+    }
+    .memory-image:hover {
+        transform: scale(1.02);
+    }
+    .hidden-text {
+        display: none;
+        background: #fff9e6;
+        padding: 20px;
+        border-radius: 20px;
+        margin-top: 15px;
+        font-family: 'Courier New', monospace;
+        border-left: 5px solid #ff9f7c;
+        max-width: 300px;
+    }
+    .show {
+        display: block;
+    }
+    .coordinates-block.show {
+    display: block !important;
+}
+.riddle-block.show {
+    display: block !important;
+}
+.coordinates-block.hidden,
+.riddle-block.hidden {
+    display: none !important;
+}
     </style>
 </head>
 <body>
     <div class="container" id="app">
         <!-- СТАРТ: ввод ключа из утренней записки -->
         <div id="splashScreen">
-            <h1>🗼 парижский маршрут 🗼</h1>
+            <h1>Парижский маршрут 🥐</h1>
+            <h2>Ты готова к путишествию?</h2>
+
             <div class="birthday-message">с днём рождения, любимая</div>
-            <div class="paris-emoji">🎂 🗼 ✨</div>
+            <div class="paris-emoji">🎂</div>
             <div style="background: #fff9f2; border-radius: 40px; padding: 32px 20px; margin: 25px 0; border: 2px solid #fadbc8; box-shadow: 0 8px 0 #e3c9b5;">
-                <p style="margin-bottom: 25px; font-size: 1.2rem; color: #7b543b; font-family: 'Playfair Display', serif;">введи ключ из утренней записки</p>
+               <div class="Key">
+
+                   <p style="margin-bottom: 25px; font-size: 1.2rem; color: #7b543b; font-family: 'Playfair Display', serif;">введи ключ из утренней записки</p>
+                   <img src="images/key.png" style="max-width: 50px;">
+               </div>
                 <div class="input-group">
                     <input type="text" id="globalKey" placeholder="код">
                     <button onclick="enterGlobalKey()">✨ начать путешествие</button>
                 </div>
                 <div class="error-message" id="globalError"></div>
             </div>
-            <div class="footer">полгода · петербург · париж · март 2026</div>
+            <div class="footer">День Рождения! · петербург · 31 марта 2026</div>
+             <div class="footer" style="text-align: end;">P.S. Твоя Бубизьяна.</div>
         </div>
 
         <!-- ОСНОВНОЙ КОНТЕЙНЕР -->
@@ -394,24 +477,33 @@
 
         // ТОЧКИ (5 штук)
         const points = [
-            { 
-                id: 1,
-                coordinates: '59.9802, 30.2190', // Крестовский пляж
-                riddle: 'Найди дерево, откуда мы смотрели на залив. Под ним конверт с кодом.',
+             {
+                 id: 1,
+                coordinates: '60.036947, 30.324604', // Озерки прокат сноубордов
+                riddle: 'Помнишь наше первое официальное свидание? Я позвал тебя в Охта Парк кататься на сноубордах. Но прежде чем покорить склоны, мы заехали в одно место...... <br> Туда, где пахло резиной и кофе, где ребята в подвальке подбирали нам доски и не только  "мы первый раз, ладно я(".<br> Ты несколько раз мерила ботинки — всё никак не могла подобрать удобные, а мы оба были такие радостные, словно уже неслись с горы, хотя ещё даже из проката не вышли 😄 Конверт с кодом — там! <br> <br> И знаешь, что я запомнил больше всего? Твою улыбку. Она меня очень радовала. С самого первого дня и до сих пор. <br><br><span class="highlight">Кодовое слово: [Агент 007 пришел получать задание] </span><br><br> P.S. Если вдруг захочешь в кино — вспомни «Мираж», но код не там. Наше кино только начинается 🎬',
                 placeKey: '1',
-                photo: 'images/Каток.png',
-                text: 'Тот день, когда мы впервые увиделись. Ты пришла с братом, а потом мы болтали до самого метро. Ты тогда показалась мне самой интересной девушкой в мире.'
+                photo: 'images/',
+                text: 'Мы так и не стали профи, но это был лучший день. <br> Мы уехали на целый день в Охта Парк, и ты учила меня кататься. Падали, смеялись, снова вставали и радовались как дети. Эмоций было — вагон, и всё самые настоящие. <br> А ещё устроили офигенную фотосессию прямо на склоне. До сих пор те фото — мои любимые.<br> Ты смеялась, я любовался. И пусть сноуборд нас так и не покорил — тот вечер остался в сердце навсегда.'
             },
             { 
                 id: 2,
-                coordinates: '59.9438, 30.2901', // Новая Голландия
+                coordinates: '59.966936, 30.242207', // Крестовский пляж
+                riddle: 'Помнишь тот день на пляже? Ты была в моей команде, а я кричал своему брату: «Вам хана, щас бомбёжка будет!» И мы реально их сделали, наверное, хахаха. А потом, после игры, пошли к метро и болтали обо всём — о катке, о твоих связках на голени, о чём-то ещё… Я запомнил тот вечер навсегда. Код — где-то там, на пляже, возле песка и той сетки, где мы играли. Найди',
+                placeKey: '1',
+                photo: 'images/beach.jpg',
+                text: 'А ты не промах, поздравляю с первой победой! Так держать, ты умница. Классный был день, когда мы впервые увиделись! Ты пришла с братом, а потом мы болтали до самого метро. Ты тогда показалась мне очень интересной девушкой. И раз ты так классно стартанула — погнали дальше! Путишествие только начинается!'
+            },
+           
+            { 
+                id: 3,
+                coordinates: '59.930390, 30.289907', // Новая Голландия
                 riddle: 'Красная арка, лёд и вальс. С обратной стороны таблички конверт.',
                 placeKey: '1',
-                photo: 'images/MyCollages.png',
+                photo: 'images/my_collag.jpg',
                 text: 'Мы так и не научились кататься, но это был лучший вечер. Ты смеялась, мы падали, а потом танцевали вальс.'
             },
             { 
-                id: 3,
+                id: 4,
                 coordinates: '59.9440, 30.3066', // Стрелка В.О.
                 riddle: 'Ростральные колонны. Загляни за скульптуру у подножия южной колонны.',
                 placeKey: '1',
@@ -419,7 +511,7 @@
                 text: 'Символ морской славы. Здесь мы мечтали о путешествиях.'
             },
             { 
-                id: 4,
+                id: 5,
                 coordinates: '59.9452, 30.3364', // Летний сад
                 riddle: 'Памятник Крылову. Найди самую маленькую мышь на постаменте.',
                 placeKey: '1',
@@ -427,7 +519,7 @@
                 text: 'Мы смеялись над смешными мордами животных. Этот сад помнит наши прогулки.'
             },
             { 
-                id: 5,
+                id: 6,
                 coordinates: '59.9343, 30.3292', // Дом Зингера
                 riddle: 'Встань лицом к Спасу-на-Крови. На набережной найди чугунную решётку. За ней конверт.',
                 placeKey: '1',
@@ -511,8 +603,10 @@
                 <div class="point">
                     <span class="badge">🗼 остановка ${currentPointIndex + 1}</span>
                     <h2>📍 координаты</h2>
-                    <div class="coordinates-block">${point.coordinates}</div>
-                    <div class="riddle-block">🔍 ${point.riddle}</div>
+                    <img src="images/Конверт.png" class="memory-image" id="clickImage">
+<div class="coordinates-block" id="secretMessage" style="display: none;">${point.coordinates}</div>
+
+                    <div class="riddle-block" id="secretZadach" style="display:none;">🔍 ${point.riddle}</div>
             `;
 
             if (!pointRevealed) {
@@ -525,17 +619,18 @@
                 `;
             } else {
                 html += `
-                    <div class="photo-frame">
+                    <div class="photo-frame" style="border-radius: 25px;
+    max-width: 300px;">
                         <img src="${point.photo}" alt="фото" onerror="this.parentElement.innerHTML='<div class=\\'photo-placeholder\\'>📸</div>'">
                     </div>
                     <div class="message-text">${point.text}</div>
                 `;
                 
                 // Добавляем видео только для третьей точки
-                if (currentPointIndex == 1) {
+                if (currentPointIndex == 2) {
                     html += `
                         <div class="video-container">
-                            <video class="memory-video" controls preload="metadata" playsinline>
+                            <video class="memory-video vintage-video" controls preload="metadata" playsinline>
                                 <source src="video/Video.mp4" type="video/mp4">
                                 <source src="video/Video.webm" type="video/webm">
                                 Ваш браузер не поддерживает видео. 
@@ -647,5 +742,80 @@
             }
         });
     </script>
+ 
+
+
+<script>
+    // Простейший обработчик для всего
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // Функция для навешивания обработчиков
+        function setupHandlers() {
+            console.log('Навешиваем обработчики...');
+            
+            // 1. Конверт - показывает координаты
+            const img = document.getElementById('clickImage');
+            const coords = document.getElementById('secretMessage');
+            const zadaxh = document.getElementById('secretZadach');
+            
+            if (img && coords) {
+                img.onclick = function() {
+                    coords.style.display = 'block';
+                    console.log('Координаты показаны');
+                    zadaxh.style.display = 'block';
+                    console.log('Звгадка показана');
+                };
+            }
+            
+            // 2. Блок координат - добавляем класс hidden при клике
+            const coordBlock = document.querySelector('.coordinates-block');
+            if (coordBlock) {
+                // Убираем старый обработчик
+                coordBlock.onclick = null;
+                // Вешаем новый
+                coordBlock.onclick = function(e) {
+                    e.stopPropagation();
+                    this.classList.add('hidden');
+                    alert('Координаты открыты ❤️');
+                    console.log('Координаты скрыты');
+                };
+            }
+            
+            // 3. Блок загадки - добавляем класс hidden при клике
+            const riddleBlock = document.querySelector('.riddle-block');
+            if (riddleBlock) {
+                // Убираем старый обработчик
+                riddleBlock.onclick = null;
+                // Вешаем новый
+                riddleBlock.onclick = function(e) {
+                    e.stopPropagation();
+                    this.classList.add('hidden');
+                    alert('Загадка открыта ❤️');
+                    console.log('Загадка скрыта');
+                };
+            }
+            
+            console.log('Обработчики навешены');
+        }
+        
+        // Наблюдаем за изменениями в mainContainer
+        const container = document.getElementById('mainContainer');
+        
+        if (container) {
+            const observer = new MutationObserver(function(mutations) {
+                console.log('Контейнер изменился');
+                // Небольшая задержка, чтобы DOM точно обновился
+                setTimeout(setupHandlers, 100);
+            });
+            
+            observer.observe(container, { childList: true, subtree: true });
+        }
+        
+        // Первый запуск
+        setTimeout(setupHandlers, 500);
+    });
+</script>
+
+
 </body>
 </html>
