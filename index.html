@@ -581,7 +581,7 @@ h1, h2, .birthday-message {
             border-radius: 24px;
             display: block;
             object-fit: cover;
-            aspect-ratio: 4 / 3;
+            aspect-ratio: 4 / 4;
             box-shadow: 0 6px 14px rgba(0,0,0,0.15);
             transition: transform 0.3s;
             cursor: pointer;
@@ -732,8 +732,124 @@ h1, h2, .birthday-message {
             animation: wiggle 0.2s ease;
         }
         </style>
+
+        <style>
+.heart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(8px);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeInOverlay 0.5s ease;
+    cursor: pointer;
+}
+
+@keyframes fadeInOverlay {
+    from { opacity: 0; backdrop-filter: blur(0px); }
+    to { opacity: 1; backdrop-filter: blur(8px); }
+}
+
+.giant-heart {
+    font-size: 180px;
+    animation: heartBeat 0.8s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(255,80,80,0.8));
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.giant-heart:active {
+    transform: scale(0.95);
+}
+
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); text-shadow: 0 0 20px #ff3366; }
+    50% { transform: scale(1.2); text-shadow: 0 0 50px #ff6699; }
+}
+
+.heart-explode {
+    animation: explodeOut 0.4s forwards;
+}
+
+@keyframes explodeOut {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(3); opacity: 0; }
+}
+
+.floating-heart {
+    position: fixed;
+    pointer-events: none;
+    z-index: 10001;
+    font-size: 24px;
+    animation: floatUp 1.5s ease-out forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-150px) scale(0.5) rotate(180deg);
+        opacity: 0;
+    }
+}
+
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: #ffb347;
+    position: absolute;
+    animation: fall 2s linear forwards;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+.flash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    pointer-events: none;
+    z-index: 9997;
+    animation: flashAnim 0.3s ease-out forwards;
+}
+
+@keyframes flashAnim {
+    0% { opacity: 0.8; }
+    100% { opacity: 0; visibility: hidden; }
+}
+
+.sparkle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    animation: sparkleFade 1s ease-out forwards;
+}
+
+@keyframes sparkleFade {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+</style>
+
+
 </head>
 <body>
+   
     <div class="container" id="app">
         <!-- СТАРТ: ввод ключа из утренней записки -->
         <div id="splashScreen">
@@ -942,10 +1058,16 @@ if(currentPointIndex !== 4){
 
     <!-- ГАЛЕРЕЯ-ЗМЕЙКА (6 фото в шахматном порядке) -->
     <div class="snake-gallery">
+        <div class="snake-item right">
+            <div class="photo-card">
+                <img src="images/15.jpg" alt="Уютная палатка с гирляндой">
+                <div class="caption">✨</div>
+            </div>
+        </div>
         <!-- 1 — слева (Вуокса) -->
         <div class="snake-item left">
             <div class="photo-card">
-                <img src="images/1.jpg" alt="Вуокса водная гладь" loading="lazy">
+                <img src="images/16.jpg" alt="Вуокса водная гладь" loading="lazy">
                 <div class="caption">🏞️ Вуокса · водный поход · вёсла и смех</div>
             </div>
         </div>
@@ -953,7 +1075,7 @@ if(currentPointIndex !== 4){
         <!-- 2 — справа (Скалы) -->
         <div class="snake-item right">
             <div class="photo-card">
-                <img src="images/2.jpg" alt="Скалы и палатки">
+                <img src="images/12.jpg" alt="Скалы и палатки">
                 <div class="caption">⛰️ Скалы · ночёвки и первые маршруты</div>
             </div>
         </div>
@@ -969,7 +1091,7 @@ if(currentPointIndex !== 4){
         <!-- 4 — справа (Палатка с лампачками) -->
         <div class="snake-item right">
             <div class="photo-card">
-                <img src="images/4.jpg" alt="Уютная палатка с гирляндой">
+                <img src="images/10.jpg" alt="Уютная палатка с гирляндой">
                 <div class="caption">✨ Лагерь · тёплый свет и лампачки</div>
             </div>
         </div>
@@ -990,6 +1112,48 @@ if(currentPointIndex !== 4){
             </div>
         </div>
     </div>
+     <!-- N -->
+        <div class="snake-item right">
+            <div class="photo-card">
+                <img src="images/17.jpg" alt="Уютная палатка с гирляндой">
+                <div class="caption">✨</div>
+            </div>
+        </div>
+        <!-- N -->
+        <div class="snake-item right">
+            <div class="photo-card">
+                <img src="images/6.jpg" alt="Уютная палатка с гирляндой">
+                <div class="caption">✨</div>
+            </div>
+        </div>
+        <!-- N -->
+        <div class="snake-item right">
+            <div class="photo-card">
+                <img src="images/4.jpg" alt="Уютная палатка с гирляндой">
+                <div class="caption">✨</div>
+            </div>
+        </div>
+        <!-- N -->
+        <div class="snake-item right">
+            <div class="photo-card">
+                <img src="images/21.jpg" alt="Уютная палатка с гирляндой">
+                <div class="caption">✨</div>
+            </div>
+        </div>
+        <!-- N -->
+        <div class="snake-item right">
+            <div class="photo-card">
+                <img src="images/11.jpg" alt="Уютная палатка с гирляндой">
+                <div class="caption">✨</div>
+            </div>
+        </div>
+        <!-- N -->
+        <div class="snake-item right">
+            <div class="photo-card">
+                <img src="images/15.jpg" alt="Уютная палатка с гирляндой">
+                <div class="caption">✨</div>
+            </div>
+        </div>
     `;
 }
                
@@ -1008,8 +1172,8 @@ if(currentPointIndex !== 4){
                         <h2> Или вот это </h2>
                         <div class="video-container">
                             <video class="memory-video vintage-video" controls preload="metadata" playsinline>
-                                <source src="video/Video.mp4" type="video/mp4">
-                                <source src="video/Video.webm" type="video/webm">
+                                <source src="video/img-3003_gkjd3xzp.mp4" type="video/mp4">
+                                <source src="video/img-3003_gkjd3xzp.mp4" type="video/webm">
                                 Ваш браузер не поддерживает видео. 
                                 <a href="video/Video.mp4">Скачать видео</a>
                             </video>
@@ -1440,7 +1604,7 @@ document.addEventListener('click', function(e) {
     transform: scale(0.95);
 }
 </style>
-
+<script src="js/Love.js"></script>
 <!-- <script src="js/script2.js"></script> -->
  <script src="js/script2.js"></script>
 </body>
