@@ -446,6 +446,292 @@ h1, h2, .birthday-message {
     display: none !important;
 }
     </style>
+  <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+       
+
+        /* основной контейнер */
+        .story-container {
+            max-width: 550px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* заголовок секции */
+        .snake-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .snake-header h2 {
+               font-family: 'Playfair Display', serif;
+                font-size: 1.8rem;
+                color: #85634d;
+                /* text-shadow: 2px 0.0001px 0 #5a3a28; */
+                letter-spacing: 2px;
+        }
+        .snake-header p {
+                color: #7b543b;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            border-top: 2px dotted #c9a87b;
+            display: inline-block;
+            padding-top: 8px;
+        }
+
+        /* ========== ЗМЕЙКА-ГАЛЕРЕЯ (MOBILE SNAKE) ========== */
+        .snake-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            position: relative;
+            padding: 10px 0 30px 0;
+        }
+
+        /* извилистая линия-след (как тело змейки) */
+        .snake-gallery::before {
+            content: '';
+            position: absolute;
+            left: 18%;
+            top: 20px;
+            width: 4px;
+            height: calc(100% - 40px);
+            background: linear-gradient(180deg, 
+                #e6b87e, #c98f54, #b57a42, #dba十五, #e6b87e);
+            border-radius: 4px;
+            box-shadow: 0 0 6px rgba(255,200,120,0.6);
+            z-index: 0;
+            animation: snakePulse 2s infinite;
+        }
+
+        @keyframes snakePulse {
+            0%, 100% { opacity: 0.7; transform: scaleX(1);}
+            50% { opacity: 1; transform: scaleX(1.2); background: #ffcf8a;}
+        }
+
+        /* каждый элемент — змейка то влево, то вправо */
+        .snake-item {
+            display: flex;
+            width: 100%;
+            position: relative;
+            animation: fadeSlideUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        .snake-item.left {
+            justify-content: flex-start;
+        }
+        .snake-item.right {
+            justify-content: flex-end;
+        }
+
+        /* задержки для плавного появления */
+        .snake-item:nth-child(1) { animation-delay: 0.05s; opacity: 0; animation-fill-mode: forwards; }
+        .snake-item:nth-child(2) { animation-delay: 0.15s; opacity: 0; animation-fill-mode: forwards; }
+        .snake-item:nth-child(3) { animation-delay: 0.25s; opacity: 0; animation-fill-mode: forwards; }
+        .snake-item:nth-child(4) { animation-delay: 0.35s; opacity: 0; animation-fill-mode: forwards; }
+        .snake-item:nth-child(5) { animation-delay: 0.45s; opacity: 0; animation-fill-mode: forwards; }
+        .snake-item:nth-child(6) { animation-delay: 0.55s; opacity: 0; animation-fill-mode: forwards; }
+
+        @keyframes fadeSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* стиль фото-рамки */
+        .photo-card {
+            width: 82%;
+            background: #fffaf2;
+            border-radius: 32px;
+            padding: 14px 14px 12px 14px;
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.4), 0 0 0 1px #fae2c6 inset, 0 0 0 3px #fff9f0 inset;
+            transition: all 0.35s ease;
+            backdrop-filter: blur(2px);
+            transform-origin: center;
+        }
+
+        .snake-item.left .photo-card {
+            border-bottom-left-radius: 16px;
+            transform: rotate(-0.5deg);
+        }
+        .snake-item.right .photo-card {
+            border-bottom-right-radius: 16px;
+            transform: rotate(0.5deg);
+        }
+
+        .photo-card:hover {
+            transform: scale(1.02) translateY(-4px);
+            box-shadow: 0 28px 35px -14px rgba(0,0,0,0.5);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 24px;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 4 / 3;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .photo-card img:active {
+            transform: scale(0.98);
+        }
+
+        .caption {
+            font-family: 'Segoe UI', system-ui;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-align: center;
+            margin-top: 12px;
+            color: #8b5a3c;
+            background: #fff6ec;
+            padding: 8px 12px;
+            border-radius: 60px;
+            display: inline-block;
+            width: 100%;
+            letter-spacing: 0.3px;
+            box-shadow: inset 0 1px 2px #ffeee0, 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        /* декоративные элементы на "голову" змейки */
+        .snake-gallery::after {
+            content: "🐍✨";
+            position: absolute;
+            bottom: -20px;
+            right: 5%;
+            font-size: 2.2rem;
+            opacity: 0.7;
+            filter: drop-shadow(2px 4px 6px #221a12);
+            pointer-events: none;
+        }
+
+        /* ========== ФИНИШНЫЙ ЭКРАН ========== */
+        .finish-screen {
+            background: linear-gradient(135deg, #fff5e8, #ffefdf);
+            border-radius: 64px 64px 56px 56px;
+            padding: 36px 24px 44px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: 0 35px 45px -20px rgba(0,0,0,0.5), 0 0 0 4px #fbe5cf inset, 0 0 0 8px #ffffffba inset;
+            border: 1px solid #eccaac;
+            animation: glowFinish 0.8s ease;
+        }
+
+        @keyframes glowFinish {
+            0% { opacity: 0; transform: scale(0.96); box-shadow: 0 0 0 0 #ffd8b5; }
+            100% { opacity: 1; transform: scale(1); box-shadow: 0 35px 45px -20px black; }
+        }
+
+        .finish-icon {
+            font-size: 4rem;
+            filter: drop-shadow(2px 6px 12px rgba(160, 100, 40, 0.3));
+            margin-bottom: 10px;
+        }
+
+        .finish-screen h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #b45f2b;
+            margin: 10px 0;
+        }
+
+        .finish-message {
+            background: #fff5ea;
+            border-radius: 48px;
+            padding: 28px 20px;
+            margin: 25px 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #4f2f1c;
+            font-weight: 500;
+            border: 2px dashed #e2bc8c;
+        }
+
+        .location-box {
+            background: #e7cdb0;
+            border-radius: 60px;
+            padding: 18px;
+            font-family: monospace;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            font-weight: bold;
+            color: #2c1a0e;
+            margin: 20px 0;
+            display: inline-block;
+            width: 90%;
+        }
+
+        .final-button {
+            background: #c2854b;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 8px 0 #6e3c1a;
+            cursor: pointer;
+            transition: 0.07s linear;
+            margin-top: 15px;
+            width: 80%;
+        }
+
+        .final-button:active {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 #6e3c1a;
+        }
+
+        .footer-note {
+            font-size: 0.75rem;
+            margin-top: 20px;
+            color: #ad7a54;
+        }
+
+        /* кнопка прокрутки наверх и легенда */
+        .scroll-hint {
+            text-align: center;
+            font-size: 0.7rem;
+            margin: 10px 0;
+            color: #efd5b5;
+        }
+
+        @media (max-width: 550px) {
+            .photo-card {
+                width: 88%;
+                padding: 10px;
+            }
+            .snake-gallery::before {
+                left: 12%;
+            }
+            .snake-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* анимация появления фоток при скролле (доп. бонус) */
+        @keyframes wiggle {
+            0%,100%{ transform: translateX(0px);}
+            25%{ transform: translateX(3px);}
+            75%{ transform: translateX(-3px);}
+        }
+        .photo-card:active img {
+            animation: wiggle 0.2s ease;
+        }
+        </style>
 </head>
 <body>
     <div class="container" id="app">
@@ -517,11 +803,11 @@ h1, h2, .birthday-message {
             },
             { 
                 id: 5,
-                coordinates: '59.9452, 30.3364', // Летний сад
-                riddle: 'Памятник Крылову. Найди самую маленькую мышь на постаменте.',
+                coordinates: '59.927920, 30.316411', // Шишка
+                riddle: 'Каледонский лес ждёт тебя во дворе. Код у входа(во двор) — 3333. Внутри — кофейня, где каждая минута принадлежит тебе <br> Заходи не бойся иди в глубь, тебя ждут там, но <strong style="bacground-color:yellow">буть аккуратна там </strong>!',
                 placeKey: '1',
-                photo: 'img/point4.jpg',
-                text: 'Мы смеялись над смешными мордами животных. Этот сад помнит наши прогулки.'
+                photo: 'images/point.jpg',
+                text: 'Это, конечно, не наши леса. Но всё же лес. <br><br> А помнишь наши? Вуокса — водный поход. Скалы — туда ездили тренироваться, с ночёвками. И тот легендарный день зимой, когда мы как придурки тащили матрас вверх по крутой горке, потому что спать на замёрзшей земле — это жесть. Я до сих пор не знаю, как мы вообще это осилили. Но потом ты была такая радостная, что не зря взяли этот чёртов матрас с помойки. <br><br> А помнишь, как  на ориентирование ездили? Ночью бегали по лесу, карта, компас, КП искали, как придурки. Мы, как обычно, заблудились в трёх соснах, но зато нашли лесную дискатеку. На контрольном пункте нас проверяла белка с блокнотом — надеюсь, не та же, что зимой на соревнованиях. Белки-надзиратели, кстати, были довольны. Димка тоже финишировал, даже не поругался сильно, что мы опять свернули не туда. <br><br> А ещё на каждом выезде мы делали крутой лагерь. Ты всегда украшала палатку лампачками, внутри устраивала свет и делала уют и комфорт в котором приятно было находиться. Вечно что-то готовила, разжигала огонь — и даже когда всё вокруг замёрзшее и уставшее, у нас всегда было тепло. <br> Каледонский лес — это, конечно, не Вуокса и не скалы. Тут не надо грести, не надо тащить матрас в гору, не надо бегать ночью с компасом и искать КП, пока белки следят. Всего лишь двор и код 3333. <br> Думаю, тебе там понравится. Там хотя бы матрас тащить не надо..'
             },
             { 
                 id: 6,
@@ -564,8 +850,8 @@ h1, h2, .birthday-message {
 
         // ФИНАЛ (вокзал)
         const finalPoint = {
-            message: '🎉 С ДНЁМ РОЖДЕНИЯ! 🎉\n\nТы собрала все коды. Теперь найди на вокзале камеру хранения №147. Код — сумма всех чисел, которые ты нашла.',
-            hint: 'Псков → с Московского вокзала уходят поезда туда',
+            message: '🎉 С ДНЁМ РОЖДЕНИЯ! \n\nТы справилась, собрала все коды ну просто красотка!. Теперь найди на вокзале камеру хранения №147. Код — Сумма цифр второго кода который были на последней точке.',
+            hint: 'с Московского вокзала уходят поезда туда → .......',
             finalText: 'Внутри ячейки паспорт и билет. Я жду тебя там, куда ведёт этот билет. Иди ко мне. ❤️'
         };
 
@@ -627,6 +913,7 @@ h1, h2, .birthday-message {
                 `;
             } else {
                  if(currentPointIndex == 0){
+                   
                     html +=`
                     <div class="photo-frame" style="border-radius: 25px; bagroubd-color:red;">
                         <img src="images/Сноуборд.png" alt="фото" onerror="this.parentElement.innerHTML='<div class=\\'photo-placeholder\\'>📸</div>'">
@@ -634,14 +921,77 @@ h1, h2, .birthday-message {
                 
 `;
 }
-                html += `
-                    <div class="photo-frame" style="border-radius: 25px;
-    ">
-                        <img src="${point.photo}" alt="фото" onerror="this.parentElement.innerHTML='<div class=\\'photo-placeholder\\'>📸</div>'">
-                    </div>
-                    
-                    <div class="message-text">${point.text}</div>
-                `;
+
+
+if(currentPointIndex !== 4){
+
+    html += `
+        <div class="photo-frame" style="border-radius: 25px;
+">
+            <img src="${point.photo}" alt="фото" onerror="this.parentElement.innerHTML='<div class=\\'photo-placeholder\\'>📸</div>'">
+        </div>
+        
+        <div class="message-text">${point.text}</div>
+    `;
+}else{
+     html+=`
+    <div class="snake-header">
+        <h2>📸 наша лесная змейка</h2>
+        <p>каждый кадр — как извилистая тропа</p>
+    </div>
+
+    <!-- ГАЛЕРЕЯ-ЗМЕЙКА (6 фото в шахматном порядке) -->
+    <div class="snake-gallery">
+        <!-- 1 — слева (Вуокса) -->
+        <div class="snake-item left">
+            <div class="photo-card">
+                <img src="images/1.jpg" alt="Вуокса водная гладь" loading="lazy">
+                <div class="caption">🏞️ Вуокса · водный поход · вёсла и смех</div>
+            </div>
+        </div>
+
+        <!-- 2 — справа (Скалы) -->
+        <div class="snake-item right">
+            <div class="photo-card">
+                <img src="images/2.jpg" alt="Скалы и палатки">
+                <div class="caption">⛰️ Скалы · ночёвки и первые маршруты</div>
+            </div>
+        </div>
+
+        <!-- 3 — слева (Ночное ориентирование) -->
+        <div class="snake-item left">
+            <div class="photo-card">
+                <img src="images/3.jpg" alt="Ночной лес с фонариком">
+                <div class="caption">🌙 Ночное ориентирование · карта, компас, КП и белки-контролёры</div>
+            </div>
+        </div>
+
+        <!-- 4 — справа (Палатка с лампачками) -->
+        <div class="snake-item right">
+            <div class="photo-card">
+                <img src="images/4.jpg" alt="Уютная палатка с гирляндой">
+                <div class="caption">✨ Лагерь · тёплый свет и лампачки</div>
+            </div>
+        </div>
+
+        <!-- 5 — слева (Пальцевские скалы) -->
+        <div class="snake-item left">
+            <div class="photo-card">
+                <img src="images/5.jpg" alt="Костер и звезды">
+                <div class="caption">🔥 Пальцевские скалы · шашлык, гитара, звёзды</div>
+            </div>
+        </div>
+
+        <!-- 6 — справа (Каледонский лес, двор) -->
+        <div class="snake-item right">
+            <div class="photo-card">
+                <img src="images/6.jpg" alt="Каледонский лес во дворе">
+                <div class="caption">🌲 Каледонский лес · двор · код 3333 · магия внутри</div>
+            </div>
+        </div>
+    </div>
+    `;
+}
                
 
                 // Добавляем видео только для третьей точки
@@ -667,13 +1017,78 @@ h1, h2, .birthday-message {
 
                     `;
                 }
+//                if (currentPointIndex == 4){
+//     html+=`
+//     <div class="snake-gallery">
+//         <!-- фото 1 — слева (Вуокса) -->
+//         <div class="snake-item left">
+//             <div class="photo">
+//                 <img src="images/vuoksa.jpg" alt="Вуокса">
+//                 <div class="caption">Вуокса · водный поход</div>
+//             </div>
+//             <div class="spacer"></div>
+//         </div>
+
+//         <!-- фото 2 — справа (Скалы) -->
+//         <div class="snake-item right">
+//             <div class="photo">
+//                 <img src="images/scaly.jpg" alt="Скалы">
+//                 <div class="caption">Скалы · тренировки с ночёвками</div>
+//             </div>
+//             <div class="spacer"></div>
+//         </div>
+
+//         <!-- фото 3 — слева (Ночное ориентирование) -->
+//         <div class="snake-item left">
+//             <div class="photo">
+//                 <img src="images/nochnoe.jpg" alt="Ночное ориентирование">
+//                 <div class="caption">Ночное ориентирование · карта, компас, КП</div>
+//             </div>
+//             <div class="spacer"></div>
+//         </div>
+
+//         <!-- фото 4 — справа (Палатка с лампачками) -->
+//         <div class="snake-item right">
+//             <div class="photo">
+//                 <img src="images/lampachki.jpg" alt="Палатка с лампачками">
+//                 <div class="caption">Наш лагерь · лампачки и уют</div>
+//             </div>
+//             <div class="spacer"></div>
+//         </div>
+
+//         <!-- фото 5 — слева (Пальцевские скалы) -->
+//         <div class="snake-item left">
+//             <div class="photo">
+//                 <img src="images/palcevskie.jpg" alt="Пальцевские скалы">
+//                 <div class="caption">Пальцевские скалы · шашлык и звёзды</div>
+//             </div>
+//             <div class="spacer"></div>
+//         </div>
+
+//         <!-- фото 6 — справа (Каледонский лес) -->
+//         <div class="snake-item right">
+//             <div class="photo">
+//                 <img src="images/kaledonsky.jpg" alt="Каледонский лес">
+//                 <div class="caption">Каледонский лес · двор · код 3333</div>
+//             </div>
+//             <div class="spacer"></div>
+//         </div>
+//     </div>
+//     `;
+// };
+                
 
                 // Кнопка дальше
                 html += `<button onclick="goToNext()" style="margin-top:15px;">✨ дальше</button>`;
+
             }
+            
 
             html += `</div>`;
             mainContainer.innerHTML = html;
+
+
+             
         }
 
         window.revealMemory = function() {
@@ -744,7 +1159,8 @@ h1, h2, .birthday-message {
             let html = `
                 <div class="point">
                     <span class="badge">🏁 финиш</span>
-                    <h2>вокзал</h2>
+                    <h1> А вот и финальные координаты ну почти финальные </h1>
+                    <h2>59.92994847840668, 30.36224641795817</h2>
                     <div class="final-paris">
                         <div class="paris-emoji">🎂 🚂 🗼</div>
                         <div class="message-text" style="font-size:1.3rem;">
@@ -1025,6 +1441,7 @@ document.addEventListener('click', function(e) {
 }
 </style>
 
-
+<!-- <script src="js/script2.js"></script> -->
+ <script src="js/script2.js"></script>
 </body>
 </html>
