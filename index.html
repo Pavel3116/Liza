@@ -501,7 +501,7 @@ h1, h2, .birthday-message {
             width: 4px;
             height: calc(100% - 40px);
             background: linear-gradient(180deg, 
-                #e6b87e, #c98f54, #b57a42, #dba十五, #e6b87e);
+                #e6b87e, #c98f54, #b57a42, #e6b87e);
             border-radius: 4px;
             box-shadow: 0 0 6px rgba(255,200,120,0.6);
             z-index: 0;
@@ -567,7 +567,7 @@ h1, h2, .birthday-message {
         }
         .snake-item.right .photo-card {
             border-bottom-right-radius: 16px;
-            transform: rotate(0.5deg);
+                transform: rotate(5.5deg);
         }
 
         .photo-card:hover {
@@ -845,13 +845,543 @@ h1, h2, .birthday-message {
     100% { transform: scale(1.5); opacity: 0; }
 }
 </style>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+      
+   
+        
+
+        .container {
+            max-width: 650px;
+            width: 100%;
+            background: linear-gradient(145deg, #fff9ef 0%, #fff5e8 100%);
+            border-radius: 32px;
+            padding: 48px 36px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4), 0 0 0 1px rgba(210, 170, 120, 0.3), 0 0 0 8px rgba(255,245,235,0.5);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        /* Винтажная рамка */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px solid rgba(210, 170, 120, 0.3);
+            border-radius: 20px;
+            pointer-events: none;
+        }
+        
+        /* Декоративные уголки */
+        .container::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            border-top: 2px solid #c6a27a;
+            border-left: 2px solid #c6a27a;
+            border-radius: 8px 0 0 0;
+            pointer-events: none;
+        }
+        
+        .corner-decoration {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-bottom: 2px solid #c6a27a;
+            border-right: 2px solid #c6a27a;
+            border-radius: 0 0 8px 0;
+            pointer-events: none;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            color: #8b5a3c;
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        h1::before,
+        h1::after {
+            content: '✦';
+            font-size: 1.2rem;
+            color: #c6a27a;
+            margin: 0 12px;
+            opacity: 0.6;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #9b6e4c;
+            margin: 20px 0 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #d4b48c, transparent);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #e8d4bc, #ddc4a4);
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #5a3a28;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .badge i {
+            font-size: 1rem;
+        }
+
+        /* Карточка координат */
+        .coordinates-card {
+            background: linear-gradient(135deg, #fef7e8, #fff3e4);
+            border-radius: 24px;
+            padding: 20px 24px;
+            margin: 25px 0;
+            border: 1px solid #e8d4bc;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.8);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .coordinates-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+        }
+        
+        .coordinates-card i {
+            font-size: 1.4rem;
+            color: #c6a27a;
+            margin-right: 12px;
+        }
+        
+        .coordinates-card .coord-text {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #7b5a42;
+            letter-spacing: 1px;
+        }
+        
+        /* Загадка */
+        .riddle-card {
+            background: linear-gradient(145deg, #fffcf5, #fff8ef);
+            border-radius: 28px;
+            padding: 28px;
+            margin: 25px 0;
+            border: 2px dashed #e0c8ac;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #5a3e2c;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .riddle-card::before {
+            content: '🔮';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            font-size: 2rem;
+            background: #fff9ef;
+            padding: 0 12px;
+            border-radius: 30px;
+        }
+        
+        /* Фото рамка */
+        .photo-frame {
+            background: linear-gradient(145deg, #f0e4d4, #e8d8c4);
+            border-radius: 28px;
+            padding: 12px;
+            margin: 25px 0;
+            box-shadow: 0 15px 30px -8px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        
+        .photo-frame::after {
+            content: '📷';
+            position: absolute;
+            bottom: -12px;
+            right: -8px;
+            font-size: 1.5rem;
+            background: #fff9ef;
+            border-radius: 50%;
+            padding: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .photo-frame img {
+            width: 100%;
+            border-radius: 20px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .photo-frame img:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Сообщение */
+        .message-card {
+            background: linear-gradient(145deg, #fffaf2, #fff5ea);
+            border-radius: 28px;
+            padding: 32px;
+            margin: 25px 0;
+            border-left: 4px solid #d4b48c;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #4a3322;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        
+        .message-card::before {
+            content: '💌';
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            font-size: 1.8rem;
+            background: #fff5ea;
+            padding: 0 8px;
+        }
+        
+        /* Input стиль */
+        .input-group {
+            margin: 25px 0;
+        }
+        
+        .input-group input {
+            width: 100%;
+            background: #fffef9;
+            border: 2px solid #e8d4bc;
+            padding: 16px 24px;
+            border-radius: 60px;
+            font-size: 1rem;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s ease;
+            color: #5a3e2c;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+        }
+        
+        .input-group input:focus {
+            border-color: #c6a27a;
+            box-shadow: 0 0 0 3px rgba(198, 162, 122, 0.2);
+            transform: scale(1.01);
+        }
+        
+        /* Кнопки */
+        .btn {
+            background: linear-gradient(135deg, #e8d4bc, #ddc4a4);
+            border: none;
+            padding: 16px 32px;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #5a3a28;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            background: linear-gradient(135deg, #ecdcc4, #e8d0b0);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        /* Конверт стиль */
+        .envelope {
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .envelope img {
+            max-width: 180px;
+            filter: drop-shadow(0 8px 20px rgba(0,0,0,0.2));
+            transition: all 0.3s ease;
+        }
+        
+        .envelope img:hover {
+            transform: scale(1.05) rotate(2deg);
+            filter: drop-shadow(0 12px 28px rgba(0,0,0,0.25));
+        }
+        
+        /* Question block */
+        .question-card {
+            background: linear-gradient(145deg, #fffaf0, #fff5e8);
+            border-radius: 32px;
+            padding: 32px;
+            margin: 20px 0;
+            border: 1px solid #e8d4bc;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        .question-card p {
+            font-size: 1.3rem;
+            font-family: 'Playfair Display', serif;
+            color: #8b5a3c;
+            margin-bottom: 25px;
+        }
+        
+        /* Final стиль */
+        .final-card {
+            background: linear-gradient(145deg, #fff7e8, #ffefdf);
+            border-radius: 48px;
+            padding: 40px;
+            text-align: center;
+            border: 2px solid #e8d4bc;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .final-card::before {
+            content: '✨';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 3rem;
+            opacity: 0.2;
+        }
+        
+        .final-card::after {
+            content: '✨';
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 3rem;
+            opacity: 0.2;
+        }
+        
+        /* Анимации */
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .point {
+            animation: fadeSlideUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+        }
+        
+        /* Hidden */
+        .hidden {
+            display: none;
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #b69270;
+            border-top: 1px solid #e8d4bc;
+            padding-top: 24px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        /* Error message */
+        .error-message {
+            color: #c97e5a;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-top: 12px;
+            padding: 8px;
+            background: rgba(201, 126, 90, 0.1);
+            border-radius: 40px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 550px) {
+            .container {
+                padding: 32px 24px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h1::before,
+            h1::after {
+                display: none;
+            }
+            
+            .question-card p {
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Стили для галереи змейки (улучшенные) */
+        .snake-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .snake-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #8b5a3c;
+        }
+        
+        .snake-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .snake-gallery::before {
+            content: '';
+            position: absolute;
+            left: 15%;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, #e8d4bc, #c6a27a, #e8d4bc);
+            border-radius: 3px;
+        }
+        
+        .snake-item {
+            display: flex;
+            width: 100%;
+            animation: fadeSlideUp 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        .snake-item.left {
+            justify-content: flex-start;
+        }
+        
+        .snake-item.right {
+            justify-content: flex-end;
+        }
+        
+        .snake-item:nth-child(1) { animation-delay: 0.05s; opacity: 0; animation-fill-mode: forwards; }
+        .snake-item:nth-child(2) { animation-delay: 0.12s; opacity: 0; animation-fill-mode: forwards; }
+        .snake-item:nth-child(3) { animation-delay: 0.19s; opacity: 0; animation-fill-mode: forwards; }
+        .snake-item:nth-child(4) { animation-delay: 0.26s; opacity: 0; animation-fill-mode: forwards; }
+        .snake-item:nth-child(5) { animation-delay: 0.33s; opacity: 0; animation-fill-mode: forwards; }
+        .snake-item:nth-child(6) { animation-delay: 0.40s; opacity: 0; animation-fill-mode: forwards; }
+        
+        .photo-card {
+            width: 78%;
+            background: #fffef9;
+            border-radius: 24px;
+            padding: 12px;
+            box-shadow: 0 12px 24px -12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .photo-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 32px -12px rgba(0,0,0,0.25);
+        }
+        
+        .photo-card img {
+            width: 100%;
+            border-radius: 16px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+        }
+        
+        .caption {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.75rem;
+            color: #9b6e4c;
+            font-weight: 500;
+        }
+        
+        @keyframes fadeSlideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+        
+        /* Видео контейнер */
+        .video-container {
+            margin: 25px 0;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+        }
+        
+        .memory-video {
+            width: 100%;
+            display: block;
+        }
+    </style>
 
 </head>
 <body>
    
     <div class="container" id="app">
         <!-- СТАРТ: ввод ключа из утренней записки -->
+         
         <div id="splashScreen">
             <h1>Парижский маршрут 🥐</h1>
             <h2>Ты готова к путишествию?</h2>
@@ -889,7 +1419,7 @@ h1, h2, .birthday-message {
                 coordinates: '60.036947, 30.324604', // Озерки прокат сноубордов
                 riddle: 'Помнишь наше первое официальное свидание? Я позвал тебя в Охта Парк кататься на сноубордах. Но прежде чем покорить склоны, мы заехали в одно место...... <br> Туда, где пахло резиной и кофе, где ребята в подвальке подбирали нам доски и не только  "мы первый раз, ладно я(".<br> Ты несколько раз мерила ботинки — всё никак не могла подобрать удобные, а мы оба были такие радостные, словно уже неслись с горы, хотя ещё даже из проката не вышли 😄 Конверт с кодом — там! <br> <br> И знаешь, что я запомнил больше всего? Твою улыбку. Она меня очень радовала. С самого первого дня и до сих пор. <br><br><span class="highlight">Кодовое слово: [Агент 007 пришел получать задание] </span><br><br> P.S. Если вдруг захочешь в кино — вспомни «Мираж», но код не там. Наше кино только начинается 🎬',
                 placeKey: '1',
-                photo: 'images/Сноуборды2.jpg',
+                photo: 'images/Сноуборд.jpg',
                 text: 'Хаххааха, Ну как тебе задание, веселое? Надеюсь. <br><br> Мы так и не стали профи, но это был лучший день. <br> Мы уехали на целый день в Охта Парк, и ты учила меня кататься. Падали, смеялись, снова вставали и радовались как дети. Эмоций было — вагон, и всё самые настоящие. <br> А ещё устроили офигенную фотосессию прямо на склоне. До сих пор те фото — мои любимые.<br> Ты смеялась, я любовался. И пусть сноуборд нас так и не покорил — тот вечер остался в сердце навсегда.'
             },
             { 
@@ -966,7 +1496,7 @@ h1, h2, .birthday-message {
 
         // ФИНАЛ (вокзал)
         const finalPoint = {
-            message: '🎉 С ДНЁМ РОЖДЕНИЯ! \n\nТы справилась, собрала все коды ну просто красотка!. Теперь найди на вокзале камеру хранения №147. Код — Сумма цифр второго кода который были на последней точке.',
+            message: '🎉 С ДНЁМ РОЖДЕНИЯ! \n\nТы справилась, собрала все коды — ну просто красотка! Теперь найди на вокзале камеру хранения №147.',
             hint: 'с Московского вокзала уходят поезда туда → .......',
             finalText: 'Внутри ячейки паспорт и билет. Я жду тебя там, куда ведёт этот билет. Иди ко мне. ❤️'
         };
@@ -980,20 +1510,21 @@ h1, h2, .birthday-message {
         const mainContainer = document.getElementById('mainContainer');
 
         // ============== ФУНКЦИИ ==============
-        window.enterGlobalKey = function() {
-            const input = document.getElementById('globalKey')?.value.trim();
-            const errorDiv = document.getElementById('globalError');
-            if (input === GLOBAL_KEY) {
-                splash.classList.add('hidden');
-                mainContainer.classList.remove('hidden');
-                globalUnlocked = true;
-                currentPointIndex = 0;
-                pointRevealed = false;
-                renderCurrentPoint();
-            } else {
-                if (errorDiv) errorDiv.innerText = 'неверный ключ';
-            }
-        };
+       window.enterGlobalKey = async function() {
+    const input = document.getElementById('globalKey')?.value.trim();
+    const errorDiv = document.getElementById('globalError');
+    if (input === GLOBAL_KEY) {
+        await showHeartExplosion(); // Добавить это
+        splash.classList.add('hidden');
+        mainContainer.classList.remove('hidden');
+        globalUnlocked = true;
+        currentPointIndex = 0;
+        pointRevealed = false;
+        renderCurrentPoint();
+    } else {
+        if (errorDiv) errorDiv.innerText = 'неверный ключ';
+    }
+};
 
         function renderCurrentPoint() {
             if (!globalUnlocked) return;
@@ -1028,15 +1559,15 @@ h1, h2, .birthday-message {
                     <div class="error-message" id="placeKeyError"></div>
                 `;
             } else {
-                 if(currentPointIndex == 0){
+//                  if(currentPointIndex == 0){
                    
-                    html +=`
-                    <div class="photo-frame" style="border-radius: 25px; bagroubd-color:red;">
-                        <img src="images/Сноуборд.png" alt="фото" onerror="this.parentElement.innerHTML='<div class=\\'photo-placeholder\\'>📸</div>'">
-                    </div>
+//                     html +=`
+//                     <div class="photo-frame" style="border-radius: 25px; bagroubd-color:red;">
+//                         <img src="images/Сноуборд.png" alt="фото" onerror="this.parentElement.innerHTML='<div class=\\'photo-placeholder\\'>📸</div>'">
+//                     </div>
                 
-`;
-}
+// `;
+// }
 
 
 if(currentPointIndex !== 4){
@@ -1052,7 +1583,7 @@ if(currentPointIndex !== 4){
 }else{
      html+=`
     <div class="snake-header">
-        <h2>📸 наша лесная змейка</h2>
+        <h2><i class="fas fa-tree"></i> наша лесная змейка</h2>
         <p>каждый кадр — как извилистая тропа</p>
     </div>
 
@@ -1061,14 +1592,14 @@ if(currentPointIndex !== 4){
         <div class="snake-item right">
             <div class="photo-card">
                 <img src="images/15.jpg" alt="Уютная палатка с гирляндой">
-                <div class="caption">✨</div>
+                <div class="caption">🌙 Крутая там была дискатека, хахах</div>
             </div>
         </div>
         <!-- 1 — слева (Вуокса) -->
         <div class="snake-item left">
             <div class="photo-card">
                 <img src="images/16.jpg" alt="Вуокса водная гладь" loading="lazy">
-                <div class="caption">🏞️ Вуокса · водный поход · вёсла и смех</div>
+                <div class="caption">✨ Вуокса - первое захватывающее путишествие, вёсла и смех</div>
             </div>
         </div>
 
@@ -1076,7 +1607,7 @@ if(currentPointIndex !== 4){
         <div class="snake-item right">
             <div class="photo-card">
                 <img src="images/12.jpg" alt="Скалы и палатки">
-                <div class="caption">⛰️ Скалы · ночёвки и первые маршруты</div>
+                <div class="caption">✨ Скалы · ночёвки и первые маршруты</div>
             </div>
         </div>
 
@@ -1100,7 +1631,7 @@ if(currentPointIndex !== 4){
         <div class="snake-item left">
             <div class="photo-card">
                 <img src="images/5.jpg" alt="Костер и звезды">
-                <div class="caption">🔥 Пальцевские скалы · шашлык, гитара, звёзды</div>
+                <div class="caption">🔥 А ты Красотка!</div>
             </div>
         </div>
 
@@ -1108,51 +1639,52 @@ if(currentPointIndex !== 4){
         <div class="snake-item right">
             <div class="photo-card">
                 <img src="images/6.jpg" alt="Каледонский лес во дворе">
-                <div class="caption">🌲 Каледонский лес · двор · код 3333 · магия внутри</div>
+                <div class="caption">✨ а вот и очередное орриентирование и Шишка</div>
             </div>
         </div>
-    </div>
+    
      <!-- N -->
-        <div class="snake-item right">
+        <div class="snake-item left">
             <div class="photo-card">
                 <img src="images/17.jpg" alt="Уютная палатка с гирляндой">
-                <div class="caption">✨</div>
+                <div class="caption">✨ Первые наши совместные скалы</div>
             </div>
         </div>
         <!-- N -->
         <div class="snake-item right">
             <div class="photo-card">
-                <img src="images/6.jpg" alt="Уютная палатка с гирляндой">
-                <div class="caption">✨</div>
+                <img src="images/13.jpg" alt="Уютная палатка с гирляндой">
+                <div class="caption">✨Ну тут был беспорно лучший лагерь!</div>
             </div>
         </div>
         <!-- N -->
-        <div class="snake-item right">
+        <div class="snake-item left">
             <div class="photo-card">
                 <img src="images/4.jpg" alt="Уютная палатка с гирляндой">
-                <div class="caption">✨</div>
+                <div class="caption">✨ Разведчики на задание</div>
             </div>
         </div>
         <!-- N -->
         <div class="snake-item right">
             <div class="photo-card">
                 <img src="images/21.jpg" alt="Уютная палатка с гирляндой">
-                <div class="caption">✨</div>
+                <div class="caption">✨ + вайб!</div>
             </div>
         </div>
         <!-- N -->
-        <div class="snake-item right">
+        <div class="snake-item left">
             <div class="photo-card">
                 <img src="images/11.jpg" alt="Уютная палатка с гирляндой">
-                <div class="caption">✨</div>
+                <div class="caption">✨Милашки</div>
             </div>
         </div>
         <!-- N -->
         <div class="snake-item right">
             <div class="photo-card">
-                <img src="images/15.jpg" alt="Уютная палатка с гирляндой">
-                <div class="caption">✨</div>
+                <img src="images/20.jpg" alt="Уютная палатка с гирляндой">
+                <div class="caption">🌙 Ну все пора спать! Спокойной ночи. Хотя какой спать тебе пора дальше идти </div>
             </div>
+        </div>
         </div>
     `;
 }
@@ -1255,33 +1787,35 @@ if(currentPointIndex !== 4){
              
         }
 
-        window.revealMemory = function() {
-            const point = points[currentPointIndex];
-            const input = document.getElementById('placeKey')?.value.trim();
-            const errorDiv = document.getElementById('placeKeyError');
+        // Функция раскрытия воспоминаний
+window.revealMemory = async function() {
+    const point = points[currentPointIndex];
+    const input = document.getElementById('placeKey')?.value.trim();
+    const errorDiv = document.getElementById('placeKeyError');
 
-            if (input === point.placeKey) {
-                pointRevealed = true;
-                renderCurrentPoint();
-            } else {
-                if (errorDiv) errorDiv.innerText = 'неверный код';
-            }
-        };
+    if (input === point.placeKey) {
+        await showHeartExplosion(); // Добавить это
+        pointRevealed = true;
+        renderCurrentPoint();
+    } else {
+        if (errorDiv) errorDiv.innerText = 'неверный код';
+    }
+};
 
-        window.goToNext = function() {
-            // Проверяем, есть ли вопрос ПОСЛЕ текущей точки
-            const nextQuestion = questions.find(q => q.afterPoint === currentPointIndex + 1);
-            
-            if (nextQuestion) {
-                // Если есть вопрос - показываем его
-                showQuestion(nextQuestion);
-            } else {
-                // Если нет - просто на следующую точку
-                currentPointIndex++;
-                pointRevealed = false;
-                renderCurrentPoint();
-            }
-        };
+    // Функция перехода к следующей точке
+window.goToNext = async function() {
+    await showHeartExplosion(); // Добавить это
+    
+    const nextQuestion = questions.find(q => q.afterPoint === currentPointIndex + 1);
+    
+    if (nextQuestion) {
+        showQuestion(nextQuestion);
+    } else {
+        currentPointIndex++;
+        pointRevealed = false;
+        renderCurrentPoint();
+    }
+};
 
         function showQuestion(question) {
             let html = `
@@ -1300,48 +1834,343 @@ if(currentPointIndex !== 4){
             mainContainer.innerHTML = html;
         }
 
-        window.checkQuestion = function(correctAnswer, isFinal) {
-            const input = document.getElementById('questionAnswer')?.value.trim();
-            const errorDiv = document.getElementById('questionError');
+        // Функция проверки вопроса
+window.checkQuestion = async function(correctAnswer, isFinal) {
+    const input = document.getElementById('questionAnswer')?.value.trim();
+    const errorDiv = document.getElementById('questionError');
 
-            if (input.toLowerCase() === correctAnswer.toLowerCase()) {
-                if (isFinal) {
-                    // После финального вопроса идём сразу на финал
-                    renderFinal();
-                } else {
-                    // Иначе на следующую точку
-                    currentPointIndex++;
-                    pointRevealed = false;
-                    renderCurrentPoint();
-                }
-            } else {
-                if (errorDiv) errorDiv.innerText = 'неверный ответ';
-            }
-        };
+    if (input.toLowerCase() === correctAnswer.toLowerCase()) {
+        await showHeartExplosion(); // Добавить это
+        
+        if (isFinal) {
+            renderFinal();
+        } else {
+            currentPointIndex++;
+            pointRevealed = false;
+            renderCurrentPoint();
+        }
+    } else {
+        if (errorDiv) errorDiv.innerText = 'неверный ответ';
+    }
+};
 
-        function renderFinal() {
-            let html = `
-                <div class="point">
-                    <span class="badge">🏁 финиш</span>
-                    <h1> А вот и финальные координаты ну почти финальные </h1>
-                    <h2>59.92994847840668, 30.36224641795817</h2>
-                    <div class="final-paris">
-                        <div class="paris-emoji">🎂 🚂 🗼</div>
-                        <div class="message-text" style="font-size:1.3rem;">
-                            ${finalPoint.message}
+        // Функция финала
+// function renderFinal() {
+//     showHeartExplosion(); // Добавить это
+    
+//     let html = `
+//         <div class="point">
+//             <span class="badge">🏁 финиш</span>
+//             <h1> А вот и финальные координаты ну почти финальные </h1>
+//             <h2>55.753069039677946, 37.62309027271981</h2>
+//             <div class="final-paris">
+//                 <div class="paris-emoji">🎂 🚂 Чухххх</div>
+//                 <div class="message-text" style="font-size:1.3rem;">
+//                     ${finalPoint.message}
+//                 </div>
+//                 <div style="background:#ffe7d8; border-radius:25px; padding:20px; margin:25px 0; border:2px dashed #fadbc8;">
+//                     <p style="font-style:italic; color:#7b543b;">✨ ${finalPoint.hint} ✨</p>
+//                 </div>
+//                 <div class="message-text">
+//                     ${finalPoint.finalText}
+//                 </div>
+//                 <div style="text-align:center; font-size:4rem; margin:30px 0;">❤️</div>
+//             </div>
+//         </div>
+//     `;
+//     mainContainer.innerHTML = html;
+// }
+
+// Функция финала с замком и скрытым полем
+function renderFinal() {
+    if (typeof showHeartExplosion === 'function') showHeartExplosion();
+    
+    let html = `
+        <div class="point">
+            <span class="badge"><i class="fas fa-flag-checkered"></i> финиш</span>
+            <h1 style="font-size: 1.8rem;">А вот и финальные координаты</h1>
+            <div class="coordinates-card" style="text-align: center;">
+                <i class="fas fa-map-pin"></i>
+                <span class="coord-text">59.929948, 30.362246</span>
+            </div>
+            <div class="final-card">
+                <div style="font-size: 3rem;">🎂</div>
+                <div class="message-card" style="margin: 20px 0;">
+                    ${finalPoint.message}
+                </div>
+                <div class="coordinates-card">
+                    <i class="fas fa-train"></i>
+                    <p style="margin-top: 8px;">✨ ${finalPoint.hint} ✨</p>
+                </div>
+                <div class="message-card">
+                    ${finalPoint.finalText}
+                </div>
+                
+                <!-- ЗАМОК С СЕКРЕТНЫМ ПОЛЕМ -->
+                <div class="secret-lock-container" style="margin-top: 30px;">
+                    <div class="lock-card" id="lockCard" style="
+                        background: linear-gradient(135deg, #f5ede3, #efe2d4);
+                        border-radius: 32px;
+                        padding: 24px;
+                        text-align: center;
+                        border: 2px solid #e8d4bc;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        position: relative;
+                        overflow: hidden;
+                    ">
+                        <div id="lockedContent" style="transition: all 0.3s ease;">
+                            <i class="fas fa-lock" style="font-size: 2.5rem; color: #c6a27a; margin-bottom: 12px; display: block;"></i>
+                            <p style="font-family: 'Playfair Display', serif; color: #8b5a3c; font-weight: 500;">
+                                🔒 есть ещё один секрет...
+                            </p>
+                            <p style="font-size: 0.85rem; color: #b69270; margin-top: 8px;">
+                                нажми, чтобы открыть
+                            </p>
                         </div>
-                        <div style="background:#ffe7d8; border-radius:25px; padding:20px; margin:25px 0; border:2px dashed #fadbc8;">
-                            <p style="font-style:italic; color:#7b543b;">✨ ${finalPoint.hint} ✨</p>
+                        
+                        <div id="secretInputArea" style="display: none;">
+                            <i class="fas fa-key" style="font-size: 2rem; color: #c6a27a; margin-bottom: 12px; display: block;"></i>
+                            <p style="font-family: 'Playfair Display', serif; color: #8b5a3c; margin-bottom: 16px;">
+                                введи секретный код
+                            </p>
+                            <div class="input-group" style="margin: 0;">
+                                <input type="text" id="secretCodeInput" placeholder="✦ введите код ✦" 
+                                    style="text-align: center; font-size: 1rem; padding: 12px 20px;">
+                                <button class="btn" id="unlockSecretBtn" style="margin-top: 12px; padding: 12px 24px;">
+                                    <i class="fas fa-unlock-alt"></i> открыть
+                                </button>
+                            </div>
+                            <div id="secretError" class="error-message" style="font-size: 0.8rem; margin-top: 10px;"></div>
                         </div>
-                        <div class="message-text">
-                            ${finalPoint.finalText}
+                    </div>
+                    
+                    <!-- СКРЫТОЕ СООБЩЕНИЕ (появляется после правильного кода) -->
+                    <div id="hiddenMessageArea" style="display: none; margin-top: 20px;">
+                        <img src="images/finish.jpg" style="margin: auto;
+    max-width: 220px;
+    border-radius: 25px;">
+                        <div class="secret-message-card" style="
+                            background: linear-gradient(145deg, #fff5e8, #ffefe0);
+                            border-radius: 28px;
+                            padding: 28px;
+                            border: 2px solid #e8d4bc;
+                            border-left: 6px solid #e8a87c;
+                            animation: slideInUp 0.5s ease;
+                            position: relative;
+                        ">
+                            <div style="position: absolute; top: -12px; right: 20px; background: #fff5e8; padding: 0 12px; border-radius: 20px;">
+                                <i class="fas fa-star" style="color: #e8a87c;"></i>
+                                <i class="fas fa-heart" style="color: #e8a87c;"></i>
+                                <i class="fas fa-star" style="color: #e8a87c;"></i>
+                            </div>
+                            <h3 style="font-family: 'Playfair Display', serif; color: #8b5a3c; margin-bottom: 16px; text-align: center;">
+                                <i class="fas fa-envelope-open-text"></i> послание для тебя
+                            </h3>
+                            <div id="secretMessageContent" style="font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.8; color: #5a3e2c;">
+                                <!-- Здесь будет секретное сообщение -->
+                            </div>
+                            <div style="text-align: center; margin-top: 20px;">
+                                <i class="fas fa-infinity" style="color: #c6a27a;"></i>
+                            </div>
                         </div>
-                        <div style="text-align:center; font-size:4rem; margin:30px 0;">❤️</div>
                     </div>
                 </div>
-            `;
-            mainContainer.innerHTML = html;
+                
+                <div style="text-align: center; font-size: 3rem; margin-top: 30px;">
+                    <i class="fas fa-heart" style="color: #e8a87c;"></i>
+                </div>
+            </div>
+        </div>
+    `;
+    mainContainer.innerHTML = html;
+    
+    // Добавляем стили для анимации
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+        
+        .lock-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+        }
+        
+        .secret-message-card {
+            animation: slideInUp 0.5s ease;
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Настраиваем обработчики для замка
+    setupLockHandlers();
+}
+
+function setupLockHandlers() {
+    const lockCard = document.getElementById('lockCard');
+    const lockedContent = document.getElementById('lockedContent');
+    const secretInputArea = document.getElementById('secretInputArea');
+    const hiddenMessageArea = document.getElementById('hiddenMessageArea');
+    const unlockBtn = document.getElementById('unlockSecretBtn');
+    const secretCodeInput = document.getElementById('secretCodeInput');
+    const secretError = document.getElementById('secretError');
+    
+    // Секретный код (можешь изменить на любой)
+    const SECRET_CODE = 'love2026'; // или '0312' или 'париж' - что хочешь
+    
+    // Секретное сообщение
+    const secretMessage = `
+        <p>💌 <strong>Моей любимой девочке</strong> 💌</p>
+        <br>
+        <p>Ты прошла весь этот путь, справилась со всеми загадками, и вот ты здесь.</p>
+        <p>Я так горжусь тобой! Ты самая умная, самая красивая и самая любимая.</p>
+        <br>
+        <p>Этот квест я готовил специально для тебя, чтобы в твой день рождения ты почувствовала,</p>
+        <p>как много для меня значишь. Каждая точка — это наша история, наши воспоминания,</p>
+        <p>которые я храню в сердце.</p>
+        <br>
+        <p>❤️ Спасибо, что ты есть. Спасибо за каждый день, за каждую улыбку, за каждую минуту рядом.</p>
+        <p>Ты — моё вдохновение, моя радость, мой дом.</p>
+        <br>
+        <p>С днём рождения, моя любовь! Пусть все твои мечты сбываются,</p>
+        <p>а я всегда буду рядом, чтобы делать их реальностью.</p>
+        <br>
+        <p>✨ Твоя Бубизьяна ✨</p>
+        <br>
+        <div style="text-align: center; font-size: 2rem;">
+            💕 🌹 💕
+        </div>
+    `;
+    
+    // Клик по замку — показываем поле ввода кода
+    if (lockCard) {
+        lockCard.addEventListener('click', function(e) {
+            // Чтобы не срабатывало при клике на кнопку внутри
+            if (e.target === unlockBtn || e.target.closest('#unlockSecretBtn')) {
+                return;
+            }
+            if (e.target === secretCodeInput || e.target.closest('#secretCodeInput')) {
+                return;
+            }
+            
+            // Анимация "открывания" замка
+            lockedContent.style.opacity = '0';
+            setTimeout(() => {
+                lockedContent.style.display = 'none';
+                secretInputArea.style.display = 'block';
+                secretInputArea.style.animation = 'slideInUp 0.3s ease';
+            }, 200);
+        });
+    }
+    
+    // Обработчик кнопки разблокировки
+    if (unlockBtn) {
+        unlockBtn.addEventListener('click', function() {
+            const inputCode = secretCodeInput.value.trim();
+            
+            if (inputCode === SECRET_CODE) {
+                // Правильный код — показываем секретное сообщение
+                secretError.style.display = 'none';
+                
+                // Анимация успеха
+                unlockBtn.innerHTML = '<i class="fas fa-check"></i> открыто!';
+                unlockBtn.style.background = 'linear-gradient(135deg, #b8d9c6, #9bc0aa)';
+                
+                setTimeout(() => {
+                    secretInputArea.style.display = 'none';
+                    hiddenMessageArea.style.display = 'block';
+                    
+                    // Вставляем секретное сообщение
+                    const messageContent = document.getElementById('secretMessageContent');
+                    if (messageContent) {
+                        messageContent.innerHTML = secretMessage;
+                    }
+                    
+                    // Добавляем конфетти эффект
+                    if (typeof createConfetti === 'function') {
+                        createConfetti();
+                    } else {
+                        // Простая имитация конфетти
+                        for (let i = 0; i < 50; i++) {
+                            createSimpleConfetti();
+                        }
+                    }
+                }, 300);
+            } else {
+                // Неверный код
+                secretError.style.display = 'block';
+                secretError.innerHTML = '❌ неверный код, попробуй ещё раз';
+                secretCodeInput.style.borderColor = '#e8a87c';
+                secretCodeInput.style.animation = 'shake 0.3s ease';
+                
+                setTimeout(() => {
+                    secretCodeInput.style.animation = '';
+                    secretCodeInput.style.borderColor = '#e8d4bc';
+                }, 300);
+            }
+        });
+    }
+    
+    // Enter в поле ввода
+    if (secretCodeInput) {
+        secretCodeInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                unlockBtn.click();
+            }
+        });
+    }
+}
+
+// Простая функция для создания конфетти (если нет в Love.js)
+function createSimpleConfetti() {
+    const colors = ['#ff6b6b', '#ffb347', '#ffd93d', '#6bcf7f', '#a569bd', '#5dade2'];
+    const confetti = document.createElement('div');
+    confetti.style.position = 'fixed';
+    confetti.style.width = Math.random() * 8 + 4 + 'px';
+    confetti.style.height = Math.random() * 8 + 4 + 'px';
+    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.left = Math.random() * window.innerWidth + 'px';
+    confetti.style.top = '-10px';
+    confetti.style.borderRadius = '50%';
+    confetti.style.pointerEvents = 'none';
+    confetti.style.zIndex = '9999';
+    confetti.style.animation = 'fallSimple ' + (Math.random() * 2 + 1) + 's linear forwards';
+    document.body.appendChild(confetti);
+    
+    setTimeout(() => {
+        confetti.remove();
+    }, 2000);
+}
+
+// Добавляем стиль для анимации падения
+const confettiStyle = document.createElement('style');
+confettiStyle.textContent = `
+    @keyframes fallSimple {
+        0% {
+            transform: translateY(-10px) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(100vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+`;
+document.head.appendChild(confettiStyle);
 
         // Enter на стартовом экране
         document.addEventListener('keypress', function(e) {
@@ -1604,6 +2433,9 @@ document.addEventListener('click', function(e) {
     transform: scale(0.95);
 }
 </style>
+
+
+<script src="js/Zoloto.js"></script>
 <script src="js/Love.js"></script>
 <!-- <script src="js/script2.js"></script> -->
  <script src="js/script2.js"></script>

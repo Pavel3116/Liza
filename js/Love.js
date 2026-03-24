@@ -2,19 +2,19 @@
 
 function burstConfettiWithHearts() {
     // разноцветное конфетти
-    for(let i = 0; i < 120; i++) {
-        const conf = document.createElement('div');
-        conf.classList.add('confetti');
-        conf.style.left = Math.random() * 100 + '%';
-        conf.style.backgroundColor = `hsl(${Math.random() * 360}, 80%, 60%)`;
-        conf.style.width = Math.random() * 10 + 6 + 'px';
-        conf.style.height = Math.random() * 10 + 6 + 'px';
-        conf.style.position = 'fixed';
-        conf.style.top = '-10px';
-        conf.style.zIndex = 9999;
-        document.body.appendChild(conf);
-        setTimeout(() => conf.remove(), 2500);
-    }
+    // for(let i = 0; i < 120; i++) {
+    //     const conf = document.createElement('div');
+    //     conf.classList.add('confetti');
+    //     conf.style.left = Math.random() * 100 + '%';
+    //     conf.style.backgroundColor = `hsl(${Math.random() * 360}, 80%, 60%)`;
+    //     conf.style.width = Math.random() * 10 + 6 + 'px';
+    //     conf.style.height = Math.random() * 10 + 6 + 'px';
+    //     conf.style.position = 'fixed';
+    //     conf.style.top = '-10px';
+    //     conf.style.zIndex = 9999;
+    //     document.body.appendChild(conf);
+    //     setTimeout(() => conf.remove(), 2500);
+    // }
     // летящие сердечки
     for(let i = 0; i < 40; i++) {
         const heart = document.createElement('div');
@@ -40,7 +40,7 @@ function createSparkle(x, y) {
     for(let i = 0; i < 12; i++) {
         const spark = document.createElement('div');
         spark.className = 'sparkle';
-        spark.innerHTML = ['✨', '⭐', '💫', '🌟'][Math.floor(Math.random() * 4)];
+        spark.innerHTML = ['❤️', '💖', '💗', '💓', '💕', '💝'][Math.floor(Math.random() * 400)];
         spark.style.left = (x + (Math.random() - 0.5) * 80) + 'px';
         spark.style.top = (y + (Math.random() - 0.5) * 80) + 'px';
         spark.style.position = 'fixed';
