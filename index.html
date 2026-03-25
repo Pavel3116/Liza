@@ -1375,7 +1375,28 @@ h1, h2, .birthday-message {
             display: block;
         }
     </style>
+<style>
+    /* Для длинных строк текста */
+.message-card {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto; /* переносы слов, если нужно */
+}
 
+/* Для кнопок на мобильных */
+@media (max-width: 550px) {
+    .btn, .final-button {
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 0.95rem;
+    }
+    
+    .input-group input {
+        font-size: 0.95rem;
+        padding: 14px 20px;
+    }
+}
+</style>
 </head>
 <body>
    
@@ -1855,7 +1876,7 @@ window.checkQuestion = async function(correctAnswer, isFinal) {
 };
 
         // Функция финала
-// function renderFinal() {
+// function renderFinal()
 //     showHeartExplosion(); // Добавить это
     
 //     let html = `
@@ -1954,7 +1975,7 @@ function renderFinal() {
                             background: linear-gradient(145deg, #fff5e8, #ffefe0);
                             border-radius: 28px;
                             padding: 28px;
-                            border: 2px solid #e8d4bc;
+                            border: 2px solid #e8d4bc;   
                             border-left: 6px solid #e8a87c;
                             animation: slideInUp 0.5s ease;
                             position: relative;
@@ -2047,6 +2068,11 @@ function setupLockHandlers() {
         <br>
         <div style="text-align: center; font-size: 2rem;">
             💕 🌹 💕
+        </div>
+        <div style="    color: red;"> 
+            <h2> Новые координаты:</h2>
+            59.95325676833709, 30.327058042000267
+
         </div>
     `;
     
