@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <!-- Яндекс.Карты API -->
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=7544e652-2452-419b-9e57-c0546f17edb6" type="text/javascript"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>День рождение - парижский маршрут!</title>
@@ -1397,10 +1399,88 @@ h1, h2, .birthday-message {
     }
 }
 </style>
+
+
+<style>
+    /* Стили для карты */
+.map-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    transition: opacity 0.4s ease;
+    background: rgba(0,0,0,0.9);
+}
+
+.map-container.hidden-map {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.map-container:not(.hidden-map) {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+#yandexMap {
+    width: 100%;
+    height: 100%;
+}
+
+.map-close-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 11000;
+    background: linear-gradient(145deg, #8b4513, #7b543b);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    width: auto;
+}
+
+.map-open-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    background: linear-gradient(145deg, #ebe9e8, #7b543b);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+</style>
 </head>
 <body>
    
     <div class="container" id="app">
+        <!-- Кнопки карты -->
+
+<button class="map-open-btn" id="openMapBtn">
+    <img src="images/clipart.png" alt="" style="max-width: 60px;">
+    
+    </button>
+
+
+<div class="map-container hidden-map" id="mapContainer">
+    <div id="yandexMap" style="width: 100%; height: 100%;"></div>
+    <button class="map-close-btn" id="closeMapBtn">✕ Закрыть карту</button>
+</div>
         <!-- СТАРТ: ввод ключа из утренней записки -->
          
         <div id="splashScreen">
@@ -1431,15 +1511,15 @@ h1, h2, .birthday-message {
 
     <script>
         // ============== ТВОИ ТОЧКИ И ВОПРОСЫ ==============
-        const GLOBAL_KEY = '1'; // пока 1, потом заменишь
+        const GLOBAL_KEY = 'ПАРИЖ'; // пока 1, потом заменишь
 
         // ТОЧКИ (5 штук)
         const points = [
              {
                  id: 1,
                 coordinates: '60.036947, 30.324604', // Озерки прокат сноубордов
-                riddle: 'Помнишь наше первое официальное свидание? Я позвал тебя в Охта Парк кататься на сноубордах. Но прежде чем покорить склоны, мы заехали в одно место...... <br> Туда, где пахло резиной и кофе, где ребята в подвальке подбирали нам доски и не только  "мы первый раз, ладно я(".<br> Ты несколько раз мерила ботинки — всё никак не могла подобрать удобные, а мы оба были такие радостные, словно уже неслись с горы, хотя ещё даже из проката не вышли 😄 Конверт с кодом — там! <br> <br> И знаешь, что я запомнил больше всего? Твою улыбку. Она меня очень радовала. С самого первого дня и до сих пор. <br><br><span class="highlight">Кодовое слово: [Агент 007 пришел получать задание] </span><br><br> P.S. Если вдруг захочешь в кино — вспомни «Мираж», но код не там. Наше кино только начинается 🎬',
-                placeKey: '1',
+                riddle: 'Помнишь наше первое официальное свидание? Я позвал тебя в Охта Парк кататься на сноубордах. Но прежде чем покорить склоны, мы заехали в одно место...... <br> Туда, где пахло резиной и кофе, где ребята в подвальке подбирали нам доски и не только  "мы первый раз, ладно я".<br> Ты несколько раз мерила ботинки — всё никак не могла подобрать удобные, а мы оба были такие радостные, словно уже неслись с горы, хотя ещё даже из проката не вышли 😄 Конверт с кодом — там! <br> <br> И знаешь, что я запомнил больше всего? Твою улыбку. Она меня очень радовала. С самого первого дня и до сих пор. <br><br><span class="highlight">Кодовое слово: [Агент 007 пришел получать задание] </span><br><br> P.S. Если вдруг захочешь в кино — вспомни «Мираж», но код не там. Наше кино только начинается 🎬',
+                placeKey: 'Мявмя уёва',
                 photo: 'images/Сноуборд.jpg',
                 text: 'Хаххааха, Ну как тебе задание, веселое? Надеюсь. <br><br> Мы так и не стали профи, но это был лучший день. <br> Мы уехали на целый день в Охта Парк, и ты учила меня кататься. Падали, смеялись, снова вставали и радовались как дети. Эмоций было — вагон, и всё самые настоящие. <br> А ещё устроили офигенную фотосессию прямо на склоне. До сих пор те фото — мои любимые.<br> Ты смеялась, я любовался. И пусть сноуборд нас так и не покорил — тот вечер остался в сердце навсегда.'
             },
@@ -1447,9 +1527,9 @@ h1, h2, .birthday-message {
                 id: 2,
                 coordinates: '59.966936, 30.242207', // Крестовский пляж
                 riddle: 'Помнишь тот день на пляже? Ты была в моей команде, а я кричал своему брату: «Вам хана, щас бомбёжка будет!» И мы реально их сделали, наверное, хахаха. А потом, после игры, пошли к метро и болтали обо всём — о катке, о твоих связках на голени, о чём-то ещё… Я запомнил тот вечер навсегда. Код — где-то там, на пляже, возле песка и той сетки, где мы играли. Найди',
-                placeKey: '1',
+                placeKey: '2349',
                 photo: 'images/beach.jpg',
-                text: 'А ты не промах, поздравляю с первой победой! Так держать, ты умница. Классный был день, когда мы впервые увиделись! Ты пришла с братом, а потом мы болтали до самого метро. Ты тогда показалась мне очень интересной девушкой. И раз ты так классно стартанула — погнали дальше! Путишествие только начинается!'
+                text: 'А ты не промах! Так держать, ты умница. <br> Классный был день, когда мы впервые увиделись! Ты пришла с братом, а потом мы болтали до самого метро. Ты тогда показалась мне очень интересной девушкой. И раз ты так классно стартанула — погнали дальше! Путишествие только начинается!'
             },
            
             { 
@@ -1462,28 +1542,29 @@ h1, h2, .birthday-message {
             },
             { 
                 id: 4,
-                coordinates: '59.9440, 30.3066', // Стрелка В.О.
-                riddle: 'Ростральные колонны. Загляни за скульптуру у подножия южной колонны.',
+                coordinates: '59.933350, 30.276505', // Сулик 
+                riddle: 'Говорят, на набережной уже много лет несёт свою вахту суровый страж. Он охраняет древний свиток от чужих рук. Но тебя он пропустит — если пройдёшь испытание. Подойди к нему смелее, у него есть для тебя свиток. Только тихо, он не любит шума и суеты. <br><br> P.S. Если вдруг захочешь перекусить — там же, на набережной, есть отличное место с вкусными пиражками и кофе. Но свиток не там, он у сурового стража, хахаа.',
                 placeKey: '1',
                 photo: 'img/point3.jpg',
-                text: 'Символ морской славы. Здесь мы мечтали о путешествиях.'
+                text: 'Хахахаха, ну как тебе стражник?  Надеюсь, он был суров, но справедлив. 🤣 Этот  танец  войдёт в историю, ххахахах.... Это был высший пилотаж. <br><br> Ты справилась на Ууууура!!!!!!! <br><br><br> А теперь — зайди в Успенскую церковь. Поставь три свечки, каждую к разной иконе. Три свечки — три желания. Надеюсь, ты загадала что-то хорошее. А теперь иди дальше, приключение продолжается ✨. <br><br> Спасибо, что согласилась на всё это!'
             },
             { 
                 id: 5,
+                coordinates: '59.9343, 30.3292', // Саша
+                riddle: 'Встань лицом к Спасу-на-Крови. На набережной найди чугунную решётку. За ней конверт.',
+                placeKey: '1',
+                photo: 'img/point5.jpg',
+                text: 'Здесь пахнет кофе и книгами. Ты любишь листать книги перед сном.'
+            },
+            { 
+                id: 6,
                 coordinates: '59.927920, 30.316411', // Шишка
                 riddle: 'Каледонский лес ждёт тебя во дворе. Код у входа(во двор) — 3333. Внутри — кофейня, где каждая минута принадлежит тебе <br> Заходи не бойся иди в глубь, тебя ждут там, но <strong style="bacground-color:yellow">буть аккуратна там </strong>!',
                 placeKey: '1',
                 photo: 'images/point.jpg',
                 text: 'Это, конечно, не наши леса. Но всё же лес. <br><br> А помнишь наши? Вуокса — водный поход. Скалы — туда ездили тренироваться, с ночёвками. И тот легендарный день зимой, когда мы как придурки тащили матрас вверх по крутой горке, потому что спать на замёрзшей земле — это жесть. Я до сих пор не знаю, как мы вообще это осилили. Но потом ты была такая радостная, что не зря взяли этот чёртов матрас с помойки. <br><br> А помнишь, как  на ориентирование ездили? Ночью бегали по лесу, карта, компас, КП искали, как придурки. Мы, как обычно, заблудились в трёх соснах, но зато нашли лесную дискатеку. На контрольном пункте нас проверяла белка с блокнотом — надеюсь, не та же, что зимой на соревнованиях. Белки-надзиратели, кстати, были довольны. Димка тоже финишировал, даже не поругался сильно, что мы опять свернули не туда. <br><br> А ещё на каждом выезде мы делали крутой лагерь. Ты всегда украшала палатку лампачками, внутри устраивала свет и делала уют и комфорт в котором приятно было находиться. Вечно что-то готовила, разжигала огонь — и даже когда всё вокруг замёрзшее и уставшее, у нас всегда было тепло. <br> Каледонский лес — это, конечно, не Вуокса и не скалы. Тут не надо грести, не надо тащить матрас в гору, не надо бегать ночью с компасом и искать КП, пока белки следят. Всего лишь двор и код 3333. <br> Думаю, тебе там понравится. Там хотя бы матрас тащить не надо..'
-            },
-            { 
-                id: 6,
-                coordinates: '59.9343, 30.3292', // Дом Зингера
-                riddle: 'Встань лицом к Спасу-на-Крови. На набережной найди чугунную решётку. За ней конверт.',
-                placeKey: '1',
-                photo: 'img/point5.jpg',
-                text: 'Здесь пахнет кофе и книгами. Ты любишь листать книги перед сном.'
             }
+         
         ];
 
         // ВОПРОСЫ (появляются между точками)
@@ -1491,13 +1572,13 @@ h1, h2, .birthday-message {
             {
                 id: 'q1',
                 question: 'День, когда мы познакомились? (в формате ДД.ММ.ГГГГ)',
-                answer: '1',
+                answer: '21.08.2025',
                 afterPoint: 1 // после первой точки
             },
             {
                 id: 'q2',
                 question: 'Дата, когда мы начали встречаться? (ДД.ММ.ГГГГ)',
-                answer: '1',
+                answer: '14.10.2025',
                 afterPoint: 2 // после второй точки
             },
             {
@@ -1510,7 +1591,7 @@ h1, h2, .birthday-message {
                 id: 'q4',
                 question: 'Какой город для тебя дом?',
                 answer: '1',
-                afterPoint: 5, // после пятой точки
+                afterPoint: 6, // после пятой точки
                 isFinal: true   // после этого вопроса сразу финал
             }
         ];
@@ -1591,7 +1672,7 @@ h1, h2, .birthday-message {
 // }
 
 
-if(currentPointIndex !== 4){
+if(currentPointIndex !== 5){
 
     html += `
         <div class="photo-frame" style="border-radius: 25px;
@@ -1734,6 +1815,21 @@ if(currentPointIndex !== 4){
 
                     `;
                 }
+
+                 if (currentPointIndex == 1) {
+                     html += `
+                     <h2> Это единственное, что у меня есть с того дня(</h2>
+                        <div class="video-container">
+                            <video class="memory-video vintage-video" controls preload="metadata" playsinline>
+                                <source src="video/first.mp4" type="video/mp4">
+                                <source src="video/first.webm" type="video/webm">
+                                Ваш браузер не поддерживает видео. 
+                                <a href="video/Video.mp4">Скачать видео</a>
+                            </video>
+                        </div>
+                        
+                        `
+                 }
 //                if (currentPointIndex == 4){
 //     html+=`
 //     <div class="snake-gallery">
@@ -1803,7 +1899,8 @@ if(currentPointIndex !== 4){
 
             html += `</div>`;
             mainContainer.innerHTML = html;
-
+//   обновление карты
+             if (typeof updateMapForPoint === 'function') updateMapForPoint();
 
              
         }
@@ -1821,6 +1918,9 @@ window.revealMemory = async function() {
     } else {
         if (errorDiv) errorDiv.innerText = 'неверный код';
     }
+
+
+
 };
 
     // Функция перехода к следующей точке
@@ -2034,7 +2134,99 @@ function renderFinal() {
     // Настраиваем обработчики для замка
     setupLockHandlers();
 }
+// ============== ФИНАЛЬНЫЕ КООРДИНАТЫ НА КАРТЕ ==============
+function addFinalCoordinatesToMap() {
+    if (!myMap) {
+        console.log('Карта не инициализирована');
+        return;
+    }
+    
+    // Финальные координаты (вокзал, платформа №147)
+    const finalCoords = [59.929948, 30.362246];
+    const secretCoords = [59.95325676833709, 30.327058042000267];
+    
+    // Удаляем старые метки, если есть
+    if (window.finalMarker) myMap.geoObjects.remove(window.finalMarker);
+    if (window.secretMarker) myMap.geoObjects.remove(window.secretMarker);
+    if (window.finalRoute) myMap.geoObjects.remove(window.finalRoute);
+    
+    // Добавляем финальную метку (вокзал)
+    window.finalMarker = new ymaps.Placemark(finalCoords, {
+        balloonContent: '<b>🎯 ФИНИШ!</b><br>Камера хранения №147<br>Московский вокзал<br><br>✨ Здесь тебя ждёт сюрприз! ✨'
+    }, {
+        preset: 'islands#violetIcon',
+        iconColor: '#9b59b6'
+    });
+    myMap.geoObjects.add(window.finalMarker);
+    
+    // Добавляем маршрут от последней точки квеста до вокзала
+    if (currentPointIndex < points.length && points[currentPointIndex]) {
+        const lastPoint = points[currentPointIndex];
+        let lastCoords;
+        if (typeof lastPoint.coordinates === 'string') {
+            const parts = lastPoint.coordinates.split(',').map(c => parseFloat(c.trim()));
+            lastCoords = [parts[0], parts[1]];
+        } else {
+            lastCoords = lastPoint.coordinates;
+        }
+        
+        window.finalRoute = new ymaps.Polyline([lastCoords, finalCoords], {}, {
+            strokeColor: "#d4a574",
+            strokeWidth: 4,
+            strokeOpacity: 0.9,
+            strokeStyle: 'solid'
+        });
+        myMap.geoObjects.add(window.finalRoute);
+    }
+    
+    // Центрируем карту на вокзале
+    myMap.panTo(finalCoords, { flying: true, duration: 800 });
+    setTimeout(() => {
+        if (typeof addFinalCoordinatesToMap === 'function') {
+            addFinalCoordinatesToMap();
+        }
+    }, 500);
+    
+    console.log('Финальные координаты добавлены на карту');
 
+}
+
+// Функция для добавления секретной точки (вызывается после открытия замка)
+function addSecretPointToMap() {
+    if (!myMap) return;
+    
+    const secretCoords = [59.95325676833709, 30.327058042000267];
+    
+    // Удаляем старую секретную метку, если есть
+    if (window.secretMarker) myMap.geoObjects.remove(window.secretMarker);
+    if (window.secretRoute) myMap.geoObjects.remove(window.secretRoute);
+    
+    // Добавляем секретную метку
+    window.secretMarker = new ymaps.Placemark(secretCoords, {
+        balloonContent: '<b>🎁 СЕКРЕТНЫЙ ПОДАРОК!</b><br>❤️ Твой сюрприз ждёт здесь! ❤️<br><br>✨ Я тебя люблю! ✨'
+    }, {
+        preset: 'islands#pinkIcon',
+        iconColor: '#ff69b4'
+    });
+    myMap.geoObjects.add(window.secretMarker);
+    
+    // Добавляем маршрут от вокзала до секретной точки
+    const finalCoords = [59.929948, 30.362246];
+    window.secretRoute = new ymaps.Polyline([finalCoords, secretCoords], {}, {
+        strokeColor: "#ff99cc",
+        strokeWidth: 4,
+        strokeOpacity: 0.8,
+        strokeStyle: 'dash'
+    });
+    myMap.geoObjects.add(window.secretRoute);
+    
+    // Анимация: показываем баллон с описанием
+    setTimeout(() => {
+        window.secretMarker.balloon.open();
+    }, 500);
+    
+    console.log('Секретная точка добавлена на карту');
+}
 function setupLockHandlers() {
     const lockCard = document.getElementById('lockCard');
     const lockedContent = document.getElementById('lockedContent');
@@ -2069,11 +2261,11 @@ function setupLockHandlers() {
         <div style="text-align: center; font-size: 2rem;">
             💕 🌹 💕
         </div>
-        <div style="    color: red;"> 
-            <h2> Новые координаты:</h2>
-            59.95325676833709, 30.327058042000267
+        // <div style="    color: red;"> 
+        //     <h2> Новые координаты:</h2>
+        //     59.95325676833709, 30.327058042000267
 
-        </div>
+        // </div>
     `;
     
     // Клик по замку — показываем поле ввода кода
@@ -2130,6 +2322,10 @@ function setupLockHandlers() {
                         }
                     }
                 }, 300);
+
+                 if (typeof addSecretPointToMap === 'function') {
+        addSecretPointToMap();
+                 }
             } else {
                 // Неверный код
                 secretError.style.display = 'block';
@@ -2142,7 +2338,9 @@ function setupLockHandlers() {
                     secretCodeInput.style.borderColor = '#e8d4bc';
                 }, 300);
             }
+            
         });
+         
     }
     
     // Enter в поле ввода
@@ -2465,5 +2663,186 @@ document.addEventListener('click', function(e) {
 <script src="js/Love.js"></script>
 <!-- <script src="js/script2.js"></script> -->
  <script src="js/script2.js"></script>
+
+
+
+
+
+<script>
+    // ============== КАРТА ==============
+    let myMap = null;
+    let mapMarkers = [];
+    let mapRoute = null;
+    let airplaneMarker = null;
+
+    function initMap() {
+        if (typeof ymaps === 'undefined') {
+            console.log('Яндекс.Карты не загружены, пробуем снова...');
+            setTimeout(initMap, 500);
+            return;
+        }
+        
+        ymaps.ready(function() {
+            const mapElement = document.getElementById('yandexMap');
+            if (!mapElement) {
+                console.log('Элемент карты не найден');
+                return;
+            }
+            
+            console.log('Яндекс.Карты загружены, создаем карту...');
+            
+            // Создаем карту
+            myMap = new ymaps.Map("yandexMap", {
+                center: [59.9343, 30.3292],
+                zoom: 12,
+                controls: ['zoomControl', 'fullscreenControl']
+            });
+            
+            // Добавляем стартовую точку (только на карте, не в квесте)
+            const startMarker = new ymaps.Placemark([60.068434, 30.314928], {
+                balloonContent: '<b>🏁 ТОЧКА СТАРТА</b><br>Архитектора Белова 9<br><br>✨ Здесь начинается твоё приключение! ✨'
+            }, {
+                preset: 'islands#greenIcon',
+                iconColor: '#2e7d32'
+            });
+            myMap.geoObjects.add(startMarker);
+            
+            console.log('Карта создана, стартовая точка добавлена');
+            
+            // Обновляем маркеры
+            updateMapForPoint();
+        });
+    }
+    
+    function updateMapForPoint() {
+        if (!myMap) {
+            console.log('Карта не инициализирована');
+            return;
+        }
+        if (typeof points === 'undefined') {
+            console.log('Массив points не найден');
+            return;
+        }
+        
+        console.log('Обновляем маркеры, текущая точка:', currentPointIndex);
+        
+        // Очищаем старые маркеры (кроме стартовой точки)
+        mapMarkers.forEach(m => myMap.geoObjects.remove(m));
+        mapMarkers = [];
+        if (mapRoute) myMap.geoObjects.remove(mapRoute);
+        if (airplaneMarker) myMap.geoObjects.remove(airplaneMarker);
+        
+        // Добавляем все пройденные точки из квеста
+        for (let i = 0; i <= currentPointIndex && i < points.length; i++) {
+            const pt = points[i];
+            let coords;
+            if (typeof pt.coordinates === 'string') {
+                const parts = pt.coordinates.split(',').map(c => parseFloat(c.trim()));
+                coords = [parts[0], parts[1]];
+            } else {
+                coords = pt.coordinates;
+            }
+            
+            const isCurrent = (i === currentPointIndex);
+            
+            const marker = new ymaps.Placemark(coords, {
+                balloonContent: `<b>${isCurrent ? '📍 ТЕКУЩАЯ ТОЧКА' : '✓ ПРОЙДЕНО'}</b><br>${pt.riddle.substring(0, 150)}...`
+            }, {
+                preset: isCurrent ? 'islands#brownIcon' : 'islands#greenIcon'
+            });
+            myMap.geoObjects.add(marker);
+            mapMarkers.push(marker);
+        }
+        
+        // Самолётик на текущей точке
+        if (currentPointIndex < points.length) {
+            let currentCoords;
+            const currentPt = points[currentPointIndex];
+            if (typeof currentPt.coordinates === 'string') {
+                const parts = currentPt.coordinates.split(',').map(c => parseFloat(c.trim()));
+                currentCoords = [parts[0], parts[1]];
+            } else {
+                currentCoords = currentPt.coordinates;
+            }
+            
+            airplaneMarker = new ymaps.Placemark(currentCoords, {
+                balloonContent: '✈️ ВЫ ЗДЕСЬ!'
+            }, {
+                preset: 'islands#airplaneIcon',
+                iconColor: '#d4a574'
+            });
+            myMap.geoObjects.add(airplaneMarker);
+        }
+        
+        // Линия маршрута
+        if (currentPointIndex > 0) {
+            const routeCoords = [];
+            for (let i = 0; i <= currentPointIndex; i++) {
+                let coords;
+                if (typeof points[i].coordinates === 'string') {
+                    const parts = points[i].coordinates.split(',').map(c => parseFloat(c.trim()));
+                    coords = [parts[0], parts[1]];
+                } else {
+                    coords = points[i].coordinates;
+                }
+                routeCoords.push(coords);
+            }
+            mapRoute = new ymaps.Polyline(routeCoords, {}, {
+                strokeColor: "#d4a574",
+                strokeWidth: 4,
+                strokeOpacity: 0.9
+            });
+            myMap.geoObjects.add(mapRoute);
+        }
+        
+        // Центрируем на текущей точке
+        if (currentPointIndex < points.length) {
+            let targetCoords;
+            const targetPt = points[currentPointIndex];
+            if (typeof targetPt.coordinates === 'string') {
+                const parts = targetPt.coordinates.split(',').map(c => parseFloat(c.trim()));
+                targetCoords = [parts[0], parts[1]];
+            } else {
+                targetCoords = targetPt.coordinates;
+            }
+            myMap.panTo(targetCoords, { flying: true, duration: 800 });
+        }
+    }
+    
+    // Управление картой
+    const mapContainer = document.getElementById('mapContainer');
+    const openMapBtn = document.getElementById('openMapBtn');
+    const closeMapBtn = document.getElementById('closeMapBtn');
+    
+    if (openMapBtn) {
+        openMapBtn.onclick = () => {
+            if (mapContainer) {
+                mapContainer.classList.remove('hidden-map');
+                setTimeout(() => {
+                    if (myMap) {
+                        myMap.container.fitToViewport();
+                    } else {
+                        initMap();
+                    }
+                }, 100);
+            }
+        };
+    }
+    
+    if (closeMapBtn) {
+        closeMapBtn.onclick = () => {
+            if (mapContainer) mapContainer.classList.add('hidden-map');
+        };
+    }
+    
+    // Запускаем карту после загрузки страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM загружен, инициализируем карту...');
+        initMap();
+    });
+    
+    // Обновляем карту при рендере (для вызова из основного кода)
+    window.updateMapForPoint = updateMapForPoint;
+</script>
 </body>
 </html>
